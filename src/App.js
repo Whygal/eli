@@ -1,8 +1,8 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
 import Button from '@mui/material/Button';
-import { Stack } from '@mui/material';
-import CountdownTimer from './TimerCounter';
+import { FormControl, Stack } from '@mui/material';
+import CountdownTimer from './Components/Clock/TimerCounter';
 // import ContactForm from "react-contact-form";
 
 const App = () => {
@@ -85,12 +85,14 @@ const App = () => {
     <div className='page'>
       <h1>!חב"ד בעתיקא ממשיכים בשיא המרץ</h1>
       <div className='Buttons'>
-        <Stack spacing={2} sx={{display:"flex", flexDirection:"row-reverse", flexWrap:"wrap", justifyContent:"center"}}>
-            <Button sx={{marginTop:"1.2em"}} onClick={() => setAmount(120)}>תרום 120 שקלים</Button>
-            <Button onClick={() => setAmount(300)}>תרום 300 שקלים</Button>
-            <Button onClick={() => setAmount(770)}>תרום 770 שקלים</Button>
-            <Button onClick={() => setAmount(null)}>תרום סכום אחר</Button>
-         </Stack>   
+        <FormControl>
+            <Stack spacing={2} sx={{display:"flex", flexDirection:"row-reverse", flexWrap:"wrap", justifyContent:"center"}}>
+                <Button variant="contained" sx={{marginTop:"2em"}} onClick={() => setAmount(120)}>תרום 120 שקלים</Button>
+                <Button variant="contained" onClick={() => setAmount(300)}>תרום 300 שקלים</Button>
+                <Button variant="contained" onClick={() => setAmount(770)}>תרום 770 שקלים</Button>
+                <Button variant="contained" onClick={() => setAmount(null)}>תרום סכום אחר</Button>
+            </Stack>  
+        </FormControl>  
       </div>
       {/* <div>
         <h2>הליך התשלום</h2>
@@ -100,7 +102,7 @@ const App = () => {
       </div> */}
       <div>
         <h2>שעון הספירה לאחור</h2>
-        <CountdownTimer targetDate={dateTimeAfterThreeDays} />
+        <CountdownTimer targetDate={dateTimeAfterThreeDays}/>
         <div>
           <h3>היעד: {goal} שקלים</h3>
           <h4>ההתקדמות: {progress}%</h4>

@@ -75,7 +75,7 @@ const App = () => {
   // }
 
   return (
-    <Context1.Provider value={{donors}}>
+    <Context1.Provider value={{}}>
     <div className='page'>
       <h1>!חב"ד בעתיקא ממשיכים בשיא המרץ</h1>
       <div className='Buttons'>
@@ -108,8 +108,7 @@ const App = () => {
       <div>
         <h2>רשימת התורמים</h2>
         <div>
-          {donors.map((d)=>{
-          <Donor key={d.id}/>})}
+          <Donor/>
         </div>
       </div>
     </div>

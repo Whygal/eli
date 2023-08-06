@@ -5,7 +5,7 @@ import { FormControl, Stack } from '@mui/material';
 import CountdownTimer from './Components/Clock/TimerCounter';
 import { useContext } from 'react';
 import Context1 from "./context"
-import Donor from './Components/Donor/Donor';
+// import ContactForm from "react-contact-form";
 
 const App = () => {
   const [amount, setAmount] = useState(0);
@@ -74,8 +74,17 @@ const App = () => {
 
   // }
 
+  const renderDonors = () => {
+    return donors.map((donor) => (
+      <div key={donor.id}>
+        <h4>{donor.name}</h4>
+        <p>{donor.amount} שקלים</p>
+      </div>
+    ));
+  };
+
   return (
-    <Context1.Provider value={{donors}}>
+    <Context1.Providor>
     <div className='page'>
       <h1>!חב"ד בעתיקא ממשיכים בשיא המרץ</h1>
       <div className='Buttons'>
@@ -108,12 +117,11 @@ const App = () => {
       <div>
         <h2>רשימת התורמים</h2>
         <div>
-          {donors.map((d)=>{
-          <Donor key={d.id}/>})}
+          {renderDonors()}
         </div>
       </div>
     </div>
-    </Context1.Provider>
+    </Context1.Providor>
   );
 };
 

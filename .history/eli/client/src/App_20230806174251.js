@@ -74,8 +74,17 @@ const App = () => {
 
   // }
 
+  const renderDonors = () => {
+    return donors.map((donor) => (
+      <div key={donor.id}>
+        <h4>{donor.name}</h4>
+        <p>{donor.amount} שקלים</p>
+      </div>
+    ));
+  };
+
   return (
-    <Context1.Provider value={{donors}}>
+    <Context1.Provider value={{}}>
     <div className='page'>
       <h1>!חב"ד בעתיקא ממשיכים בשיא המרץ</h1>
       <div className='Buttons'>
@@ -108,8 +117,7 @@ const App = () => {
       <div>
         <h2>רשימת התורמים</h2>
         <div>
-          {donors.map((d)=>{
-          <Donor key={d.id}/>})}
+          <Donor/>
         </div>
       </div>
     </div>

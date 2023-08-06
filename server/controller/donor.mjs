@@ -1,4 +1,6 @@
 import DonorModel from '../model/donor.mjs';
+import AmbassadorModel from '../model/ambassador.mjs';
+
 
 // Create a new donor
 const createDonor = async (req, res) => {
@@ -6,6 +8,7 @@ const createDonor = async (req, res) => {
         const donorData = req.body;
         const donor = new DonorModel(donorData);
         const savedDonor = await donor.save();
+        await AmbassadorModel.findByIdAndUpdate({ _id: savedDonor.ambassador }, { $push: { 'donors': savedDonor._id } })
         res.send(savedDonor);
     } catch (error) {
         console.error('Error creating donor:', error);
@@ -13,16 +16,18 @@ const createDonor = async (req, res) => {
     }
 };
 
+
 // Get all donors
 const getAllDonors = async (_req, res) => {
     try {
-        const donors = await DonorModel.find();
+        const donors = await DonorModel.find().populate('ambassador');
         res.send(donors);
     } catch (error) {
         console.error('Error fetching donors:', error);
         res.status(500).json({ error: 'Failed to fetch donors' });
     }
 };
+
 
 // Get a donor by ID
 const getDonorById = async (id) => {
@@ -34,18 +39,22 @@ const getDonorById = async (id) => {
     }
 };
 
+
 // Update a donor
 const updateDonor = async (req, res) => {
     try {
         const donorId = req.params.id;
         const donorData = req.body;
 
+
         const donor = await DonorModel.findByIdAndUpdate(donorId, donorData, { new: true });
+
 
         if (!donor) {
             res.status(404).json({ error: 'Donor not found' });
             return;
         }
+
 
         res.json(donor);
     } catch (error) {
@@ -54,16 +63,19 @@ const updateDonor = async (req, res) => {
     }
 };
 
+
 // Delete a donor
 const deleteDonor = async (req, res) => {
     try {
         const donorId = req.params.id;
         const donor = await DonorModel.findByIdAndDelete(donorId);
 
+
         if (!donor) {
             res.status(404).json({ error: 'Donor not found' });
             return;
         }
+
 
         res.json(donor);
     } catch (error) {
@@ -71,6 +83,7 @@ const deleteDonor = async (req, res) => {
         res.status(500).json({ error: 'Failed to delete donor' });
     }
 };
+
 
 export default {
     createDonor,

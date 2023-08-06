@@ -1,5 +1,6 @@
 import AmbassadorModel from '../model/ambassador.mjs';
 
+
 // Create a new ambassador
 const createAmbassador = async (req, res) => {
     try {
@@ -13,10 +14,30 @@ const createAmbassador = async (req, res) => {
     }
 };
 
-// Get all ambassadors
+
 const getAllAmbassadors = async (req, res) => {
     try {
-        const ambassadors = await AmbassadorModel.find();
+        const ambassadors = await AmbassadorModel.aggregate([
+            {
+                $lookup: {
+                    from: "donors", // This is the name of the donors collection
+                    localField: "_id",
+                    foreignField: "ambassador",
+                    as: "donors"
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    name: 1,
+                    targetAmount: 1,
+                    donorCount: { $size: "$donors" },
+                    totalDonorAmount: { $sum: "$donors.amount" },
+                }
+            }
+        ]);
+
+
         res.json(ambassadors);
     } catch (error) {
         console.error('Error fetching ambassadors:', error);
@@ -24,16 +45,21 @@ const getAllAmbassadors = async (req, res) => {
     }
 };
 
+
+
+
 // Get an ambassador by ID
 const getAmbassadorById = async (req, res) => {
     try {
         const ambassadorId = req.params.id;
         const ambassador = await AmbassadorModel.findById(ambassadorId);
 
+
         if (!ambassador) {
             res.status(404).json({ error: 'Ambassador not found' });
             return;
         }
+
 
         res.json(ambassador);
     } catch (error) {
@@ -42,11 +68,13 @@ const getAmbassadorById = async (req, res) => {
     }
 };
 
+
 // Update an ambassador
 const updateAmbassador = async (req, res) => {
     try {
         const ambassadorId = req.params.id;
         const updateData = req.body;
+
 
         const updatedAmbassador = await AmbassadorModel.findByIdAndUpdate(
             ambassadorId,
@@ -54,10 +82,12 @@ const updateAmbassador = async (req, res) => {
             { new: true }
         );
 
+
         if (!updatedAmbassador) {
             res.status(404).json({ error: 'Ambassador not found' });
             return;
         }
+
 
         res.json(updatedAmbassador);
     } catch (error) {
@@ -66,16 +96,19 @@ const updateAmbassador = async (req, res) => {
     }
 };
 
+
 // Delete an ambassador
 const deleteAmbassador = async (req, res) => {
     try {
         const ambassadorId = req.params.id;
         const deletedAmbassador = await AmbassadorModel.findByIdAndDelete(ambassadorId);
 
+
         if (!deletedAmbassador) {
             res.status(404).json({ error: 'Ambassador not found' });
             return;
         }
+
 
         res.json(deletedAmbassador);
     } catch (error) {
@@ -83,6 +116,7 @@ const deleteAmbassador = async (req, res) => {
         res.status(500).json({ error: 'Failed to delete ambassador' });
     }
 };
+
 
 export default {
     createAmbassador,

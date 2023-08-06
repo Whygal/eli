@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import Button from '@mui/material/Button';
 import { FormControl, Stack } from '@mui/material';
 import CountdownTimer from './Components/Clock/TimerCounter';
-import { useContext } from 'react';
 import Context1 from "./context"
 import Donor from './Components/Donor/Donor';
 
@@ -74,6 +73,26 @@ const App = () => {
 
   // }
 
+  function getContributors() {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://kesherhk.info/ConnectToKesher/ConnectToKesher");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify({
+      "UserName": "Mercazhaitgalut@gmail.com",
+      "Password": "elisin203044390",
+      "func": "GetContributors"
+    }));
+  
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        const contributors = JSON.parse(xhr.responseText);
+        console.log(contributors);
+      } else {
+        console.log("Error: " + xhr.status);
+      }
+    };
+  }
+
   return (
     <Context1.Provider value={{donors}}>
     <div className='page'>
@@ -111,8 +130,10 @@ const App = () => {
           {donors.map((d)=>{
           <Donor key={d.id}/>})}
         </div>
+        <button onClick={()=>getContributors()}>load</button>
       </div>
     </div>
+
     </Context1.Provider>
   );
 };

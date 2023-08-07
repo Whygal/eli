@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { FormControl, Stack } from '@mui/material';
 import Button from '@mui/material/Button';
 import CountdownTimer from '../Clock/TimerCounter';
-import DonorsList from "../Donor/DonorsList";
 import { useParams } from 'react-router-dom';
 import { useDonorContext } from '../../context/DonorContext';
 import DonorAndGroupTabsDisplay from "../Donor/DonorAndGroupTabsDisplay";

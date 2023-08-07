@@ -1,14 +1,12 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
 
-
 // Initial state for the reducer
 const initialState = {
-    donors: [],
+    groups: [],
     loading: true,
     error: null,
 };
-
 
 // Reducer function
 const groupReducer = (state, action) => {
@@ -31,9 +29,7 @@ const groupReducer = (state, action) => {
     }
 };
 
-
 const GroupContext = createContext();
-
 
 export const GroupProvider = ({ children }) => {
     const [state, dispatch] = useReducer(groupReducer, initialState);
@@ -42,14 +38,12 @@ export const GroupProvider = ({ children }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/ambassador'); // Replace with your actual API endpoint
+                const response = await axios.get('http://localhost:5000/api/group');
                 dispatch({ type: 'FETCH_SUCCESS', payload: response.data });
             } catch (error) {
                 dispatch({ type: 'FETCH_ERROR', payload: error.message });
             }
         };
-
-
         fetchData();
     }, []);
 

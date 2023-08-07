@@ -38,45 +38,45 @@ const donorReducer = (state, action) => {
     }
 };
 
-
 const DonorContext = createContext();
-
 
 export const DonorProvider = ({ children }) => {
     const [state, dispatch] = useReducer(donorReducer, initialState);
 
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/api/donor');
+            dispatch({ type: 'FETCH_SUCCESS', payload: response.data });
+        } catch (error) {
+            dispatch({ type: 'FETCH_ERROR', payload: error.message });
+        }
+    };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://localhost:5000/api/donor'); // Replace with your actual API endpoint
-                dispatch({ type: 'FETCH_SUCCESS', payload: response.data });
-            } catch (error) {
-                dispatch({ type: 'FETCH_ERROR', payload: error.message });
-            }
-        };
-
-
-        fetchData();
-    }, []);
-
+    const getDonorsByGroupId = async (groupId) => {
+        try {
+            const response = await axios.get(`http://localhost:5000/api/donor/groupId/${groupId}`);
+            dispatch({ type: 'FETCH_SUCCESS', payload: response.data });
+        } catch (error) {
+            dispatch({ type: 'FETCH_ERROR', payload: error.message });
+        }
+    };
 
     const addDonor = async (newDonor) => {
         try {
-            const response = await axios.post('http://localhost:5000/api/donor', newDonor); // Replace with your actual API endpoint
+            const response = await axios.post('http://localhost:5000/api/donor', newDonor);
             dispatch({ type: 'ADD_DONOR_SUCCESS', payload: response.data });
         } catch (error) {
             dispatch({ type: 'ADD_DONOR_ERROR' });
         }
     };
 
-
     return (
-        <DonorContext.Provider value={{ ...state, addDonor }}>
+        <DonorContext.Provider value={{ ...state, addDonor, fetchData, getDonorsByGroupId }}>
             {children}
         </DonorContext.Provider>
     );
 };
+
 
 
 export const useDonorContext = () => {

@@ -2,14 +2,14 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
-const AmbassadorSchema = new Schema({
+const GroupSchema = new Schema({
     name: {
         type: String,
         required: true,
         minlength: 2,
         maxlength: 255,
     },
-    targetAmount: {
+    goal: {
         type: Number,
         required: true,
     },
@@ -23,6 +23,6 @@ const AmbassadorSchema = new Schema({
     },
 });
 
-const AmbassadorModel = mongoose.model('Ambassador', AmbassadorSchema);
+const GroupModel = mongoose.model('Group', GroupSchema);
 
-export default AmbassadorModel;
+export default GroupModel;

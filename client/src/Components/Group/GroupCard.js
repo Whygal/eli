@@ -4,12 +4,13 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper'; // Import Material-UI Paper component
 import LinearProgress from '@mui/material/LinearProgress';
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 
-function GroupCard({ name, sumDonors, targetAmount, totalDonorAmount }) {
+function GroupCard({ id, name, sumDonors, goal, totalDonorAmount }) {
 
 
-    const progressPercentage = (totalDonorAmount / targetAmount) * 100;
+    const progressPercentage = (totalDonorAmount / goal) * 100;
 
 
     return (
@@ -39,11 +40,13 @@ function GroupCard({ name, sumDonors, targetAmount, totalDonorAmount }) {
                     <Grid item xs={6}>
                         ₪{totalDonorAmount ?? 0}
                         <br />
-                        מתוך יעד של ₪{targetAmount} גויס
+                        מתוך יעד של ₪{goal} גויס
                     </Grid>
                     <Grid item xs={3}>
                         <div className='pt-2'>
-                            <Button variant='contained'>הצג</Button>
+                            <Link to={`/${id}/${name}`}>
+                                <Button variant='contained'>הצג</Button>
+                            </Link>
                         </div>
                     </Grid>
                 </Grid>

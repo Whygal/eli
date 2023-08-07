@@ -3,12 +3,10 @@
     text-align: right;
 }
 
-
 .tab-active {
     font-weight: bold;
     color: #32444b;
 }
-
 
 .tab-inactive {
     /* background-color: #f8f9fa; */

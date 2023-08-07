@@ -15,12 +15,11 @@ const DonorSchema = new Schema({
     },
     currency: {
         type: String,
-        required: true,
-        enum: ['USD', 'ILS']
+        default: 'ILS'
     },
-    ambassador: {
+    group: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Ambassador'
+        ref: 'Group'
     },
     date: {
         type: Date,

@@ -8,6 +8,8 @@ import Context1 from "./context"
 import Donor from './Components/Donor/Donor';
 import GroupPage from './Components/Group/GroupPage';
 import MainPage from './Components/Donor/MainPage';
+import AdminPage from './Components/Admin/AdminPage';
+import ButtomPayment from './Components/Payment/ButtomPayment';
 
 const App = () => {
   const [amount, setAmount] = useState(0);
@@ -144,9 +146,11 @@ const App = () => {
                 <div>
                   <MainPage/>
                 </div>
+                <ButtomPayment />
               </>
             } />
             <Route path="/:groupId/:groupName" element={<GroupPage />} />
+            <Route path="/admin" element={<AdminPage />} />
           </Routes>
         </BrowserRouter>
       </Context1.Provider>

@@ -3,6 +3,7 @@ import { Tab, Tabs, Container } from '@mui/material';
 import DonorCard from './DonorCard';
 import './rlt.css';
 import GroupCard from '../Group/GroupCard';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function DonorAndGroupTabsDisplay({ donors, groups, donorLoading, donorError, groupLoading, groupError }) {
     const [tabValue, setTabValue] = useState(0);
@@ -38,7 +39,7 @@ function DonorAndGroupTabsDisplay({ donors, groups, donorLoading, donorError, gr
                     {tabValue === 0 && (
                         <div>
                             {/* Render donors */}
-                            {donorLoading ? <p>Loading donors...</p> : null}
+                            {donorLoading ? <CircularProgress /> : null}
                             {donorError ? <p>Error loading donors: {donorError}</p> : null}
                             {donors && donors.length > 0 && (
                                 <div className="row">
@@ -63,7 +64,7 @@ function DonorAndGroupTabsDisplay({ donors, groups, donorLoading, donorError, gr
                     {tabValue === 2 && (
                         <div>
                             {/* Render groups */}
-                            {groupLoading ? <p>Loading groups...</p> : null}
+                            {groupLoading ? <CircularProgress /> : null}
                             {groupError ? <p>Error loading groups: {groupError}</p> : null}
                             {groups && groups.length > 0 && (
                                 <div className="row">

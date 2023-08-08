@@ -12,7 +12,6 @@ function MainPage() {
     }, []);
 
     return (
-        <div>
             <DonorAndGroupTabsDisplay
                 donors={donors}
                 groups={groups}
@@ -21,7 +20,6 @@ function MainPage() {
                 groupLoading={groupLoading}
                 groupError={groupError}
             />
-        </div>
     )
 }
 

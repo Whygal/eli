@@ -7,6 +7,8 @@ const initialState = {
     donors: [],
     loading: true,
     error: null,
+    sumOfAllDonorAmount: 0,
+
 };
 
 
@@ -32,7 +34,14 @@ const donorReducer = (state, action) => {
                 donors: [...state.donors, action.payload],
             };
         case 'ADD_DONOR_ERROR':
-            return state; // You can handle error state for adding donor here if needed
+            return state; 
+        case 'FETCH_TOTAL_AMOUNT_SUCCESS':
+            return {
+                ...state,
+                sumOfAllDonorAmount: action.payload
+            };
+        case 'FETCH_TOTAL_AMOUNT_ERROR':
+            return state;
         default:
             return state;
     }
@@ -70,8 +79,21 @@ export const DonorProvider = ({ children }) => {
         }
     };
 
+ const fetchTotalDonorAmount = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/api/donor/totalAmount');
+            dispatch({ type: 'FETCH_TOTAL_AMOUNT_SUCCESS', payload: response.data.totalAmount });
+        } catch (error) {
+            dispatch({ type: 'FETCH_TOTAL_AMOUNT_ERROR', payload: error.message });
+        }
+    };
+
+    useEffect(() => {
+        fetchTotalDonorAmount(); // Call the function here
+    }, []);
+
     return (
-        <DonorContext.Provider value={{ ...state, addDonor, fetchData, getDonorsByGroupId }}>
+        <DonorContext.Provider value={{ ...state, addDonor, fetchData, getDonorsByGroupId,fetchTotalDonorAmount }}>
             {children}
         </DonorContext.Provider>
     );

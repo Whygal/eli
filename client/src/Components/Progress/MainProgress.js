@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { useDonorContext } from '../../context/DonorContext';
+import { useCampaignContext } from '../../context/CampaignContext';
 
 
-const MainProgress = ({ percentage }) => {
+const MainProgress = () => {
 
-    useEffect(() => {
+    const { sumOfAllDonorAmount } = useDonorContext();
+    const {campaigns} = useCampaignContext();
+    const total = campaigns.goal;
+    const percentage = (sumOfAllDonorAmount / total) * 100;    console.log(sumOfAllDonorAmount, total, campaigns);
+
+    console.log(sumOfAllDonorAmount, total, percentage);
+
+
+        useEffect(() => {
         checkPrecentage(percentage);
-    }, [percentage]);
+    }, [sumOfAllDonorAmount,campaigns]);
 
     const maxFillLine1 = 86.693006;
     const maxFillLine2 = 88.866132;
@@ -28,6 +38,11 @@ const MainProgress = ({ percentage }) => {
             setLine2(100);
             setLine3(((percentage - 66) / 33) * 100);
         } else if (percentage === 100) {
+            setLine1(100);
+            setLine2(100);
+            setLine3(100);
+            setErrow(100);
+        }else if (percentage > 100) {   
             setLine1(100);
             setLine2(100);
             setLine3(100);
@@ -114,7 +129,7 @@ const MainProgress = ({ percentage }) => {
                     textTransform: 'uppercase'
                 }}
 
-            >{percentage}% מהיעד ₪1,000,000</p>
+            >{Math.round(percentage)}% מהיעד ₪{Number(campaigns.goal).toLocaleString()}</p>
         </div >
     );
 };

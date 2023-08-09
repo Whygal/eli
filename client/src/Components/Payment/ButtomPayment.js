@@ -6,7 +6,7 @@ import PaymentPage from './PaymentPage';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-export default function ButtomPayment() {
+export default function ButtomPayment({moked}) {
 
     const [show, setShow] = useState(false);
 
@@ -58,7 +58,7 @@ export default function ButtomPayment() {
                 <Modal.Header closeButton>
                 </Modal.Header>
                 <Modal.Body>
-                    <PaymentPage />
+                    <PaymentPage moked={moked}/>
                 </Modal.Body>
             </Modal>
         </Box >

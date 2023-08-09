@@ -14,6 +14,7 @@ router.get('/donor', donor.getAllDonors);
 router.get('/donor/groupId/:id', donor.getDonorsByGroupId);
 router.put('/donor/:id', donor.updateDonor);
 router.delete('/donor/:id', donor.deleteDonor);
+router.get('/donor/totalAmount', donor.geSumOfAllDonorAmaount);
 
 
 export default router;

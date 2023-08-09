@@ -7,6 +7,6 @@
 .Buttons{
     display: flex;
     flex-wrap: wrap;
-    width: 30%;
+    /* width: 30%; */
     justify-content: center;
 }

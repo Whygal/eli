@@ -10,11 +10,8 @@ const ShowCounter = ({ days, hours, minutes, seconds }) => {
         className="countdown-link"
       >
         <DateTimeDisplay value={days} type={'ימים'} isDanger={days <= 3} />
-        <p>:</p>
         <DateTimeDisplay value={hours} type={'שעות'} isDanger={false} />
-        <p>:</p>
         <DateTimeDisplay value={minutes} type={'דקות'} isDanger={false} />
-        <p>:</p>
         <DateTimeDisplay value={seconds} type={'שניות'} isDanger={false} />
       </div>
     </div>

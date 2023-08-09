@@ -28,6 +28,28 @@ const getAllDonors = async (req, res) => {
     }
 };
 
+// Get sum of all donor amounts
+const geSumOfAllDonorAmaount = async (req, res) => {
+    try {
+        const result = await DonorModel.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    totalAmount: { $sum: '$amount' },
+                },
+            },
+        ]);
+        if (result.length > 0) {
+            res.json({ totalAmount: result[0].totalAmount });
+        } else {
+            res.json({ totalAmount: 0 });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Failed to fetch totalAmount' });
+    }
+};
+
 // Get donors by group id
 const getDonorsByGroupId = async (req, res) => {
     try {
@@ -90,6 +112,7 @@ const deleteDonor = async (req, res) => {
 export default {
     createDonor,
     getAllDonors,
+    geSumOfAllDonorAmaount,
     getDonorsByGroupId,
     getDonorById,
     updateDonor,

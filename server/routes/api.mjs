@@ -15,7 +15,7 @@ router.get('/donor', donor.getAllDonors);
 router.get('/donor/groupId/:id', donor.getDonorsByGroupId);
 router.put('/donor/:id', donor.updateDonor);
 router.delete('/donor/:id', donor.deleteDonor);
-router.get('/donor/totalAmount', donor.geSumOfAllDonorAmaount);
+router.get('/donor/totalAmount', donor.geSumOfAllDonorAmount);
 
 router.post('/campaign', campaign.createCampaign);
 router.get('/campaign', campaign.getCampaigns);

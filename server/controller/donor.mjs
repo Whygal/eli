@@ -29,7 +29,7 @@ const getAllDonors = async (req, res) => {
 };
 
 // Get sum of all donor amounts
-const geSumOfAllDonorAmaount = async (req, res) => {
+const geSumOfAllDonorAmount = async (req, res) => {
     try {
         const result = await DonorModel.aggregate([
             {
@@ -112,7 +112,7 @@ const deleteDonor = async (req, res) => {
 export default {
     createDonor,
     getAllDonors,
-    geSumOfAllDonorAmaount,
+    geSumOfAllDonorAmount,
     getDonorsByGroupId,
     getDonorById,
     updateDonor,

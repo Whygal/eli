@@ -18,11 +18,11 @@ const createCampaign = async (req, res) => {
     }
 };
 
-// Fetch all campaigns
+// Fetch my campaigns
 const getCampaigns = async (req, res) => {
     try {
         const campaigns = await CampaignModel.find(); 
-        res.json(campaigns);
+        res.json(campaigns[0]);
     } catch (error) {
         console.error('Error fetching campaigns:', error);
         res.status(500).json({ error: 'Failed to fetch campaigns' });

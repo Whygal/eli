@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 import { useDonorContext } from '../../context/DonorContext';
 import DonorAndGroupTabsDisplay from "../Main/DonorAndGroupTabsDisplay";
 import ProgressAndClock from "../Progress/ProgressAndClock";
+import YoutubeEmbed from "../Video/YoutubeEmbed";
+import ButtomPayment from '../Payment/ButtomPayment';
 
 function GroupPage() {
     const { groupId, groupName } = useParams();
@@ -36,14 +38,20 @@ function GroupPage() {
                         </Stack>
                     </FormControl>
                 </div>
-                <Container maxWidth="md" className="pt-3">
-                    <ProgressAndClock />
-                    <div className='m-5'></div>
-                </Container>
+            </div>
+            <div>
+               <YoutubeEmbed />
+
+            <Container maxWidth="md" className="pt-3">
+                <ProgressAndClock />
+                <div className='m-5'></div>
+            </Container>
             </div>
             <div>
                 <DonorAndGroupTabsDisplay donors={donors} donorLoading={donorLoading} donorError={donorError} />
             </div>
+                            <ButtomPayment moked={groupName} />
+
         </>
     );
 }

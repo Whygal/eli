@@ -144,7 +144,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "cd ./client && npm start",
+    "client": "cd ./eli-app/client && npm start",
     "server": "nodemon index.mjs",
     "dev": "concurrently \"npm run client\" \"npm run server\""
   },

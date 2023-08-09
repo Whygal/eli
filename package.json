@@ -150,5 +150,6 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "render-postbuild": "cd client && yarn install && yarn build"
 }

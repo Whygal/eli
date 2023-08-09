@@ -6,6 +6,7 @@ import CountdownTimer from './Components/Clock/TimerCounter';
 import Context1 from "./context"
 import Donor from './Components/Donor/Donor';
 import DonorsList from './Components/Donor/DonorsList';
+import YoutubeEmbed from './Components/Video/YoutubeEmbed';
 
 const App = () => {
   const [amount, setAmount] = useState(0);
@@ -18,87 +19,14 @@ const App = () => {
 
   const dateTimeAfterThreeDays = NOW_IN_MS + THREE_DAYS_IN_MS;
 
-  // useEffect(() => {
-  //   ContactForm.setConfig({
-  //     action: "https://example.com/contact",
-  //     method: "post",
-  //     fields: [
-  //       {
-  //         name: "name",
-  //         label: "Your Name",
-  //         placeholder: "Your Name",
-  //         required: true,
-  //       },
-  //       {
-  //         name: "email",
-  //         label: "Your Email",
-  //         placeholder: "Your Email",
-  //         required: true,
-  //       },
-  //       {
-  //         name: "amount",
-  //         label: "Amount",
-  //         placeholder: "Amount",
-  //         required: true,
-  //       },
-  //     ],
-  //   });
-  // }, []);
-
-  // const handleChange = (e) => {
-  //   setAmount(e.target.value);
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const formData = new FormData();
-  //   formData.append("name", e.target.elements.name.value);
-  //   formData.append("email", e.target.elements.email.value);
-  //   formData.append("amount", e.target.elements.amount.value);
-
-  //   ContactForm.send(formData, (response) => {
-  //     if (response.ok) {
-  //       setAmount(0);
-  //       setDonors([...donors, {
-  //         name: response.name,
-  //         amount: response.amount,
-  //       }]);
-  //     } else {
-  //       console.log(response);
-  //     }
-  //   });
-  // };
-
-  // const clock = ()=> {
-
-  // }
-
-  function getContributors() {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://kesherhk.info/ConnectToKesher/ConnectToKesher");
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.send(JSON.stringify({
-      "UserName": "Mercazhaitgalut@gmail.com",
-      "Password": "elisin203044390",
-      "func": "GetContributors"
-    }));
-  
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        const contributors = JSON.parse(xhr.responseText);
-        console.log(contributors);
-      } else {
-        console.log("Error: " + xhr.status);
-      }
-    };
-  }
-
   return (
     <>
       <Context1.Provider value={{ donors }}>
         <div className='page'>
           <h1>!חב"ד בעתיקא ממשיכים בשיא המרץ</h1>
+          <div className='video'>
+            <YoutubeEmbed/>
+          </div>
           <div className='Buttons'>
             <FormControl>
               <Stack spacing={2} sx={{ display: "flex", flexDirection: "row-reverse", flexWrap: "wrap", justifyContent: "center" }}>
@@ -109,12 +37,6 @@ const App = () => {
               </Stack>
             </FormControl>
           </div>
-          {/* <div>
-        <h2>הליך התשלום</h2>
-        <form onSubmit={handleSubmit}>
-          <ContactForm />
-        </form>
-      </div> */}
           <div>
             <h2>שעון הספירה לאחור</h2>
             <CountdownTimer targetDate={dateTimeAfterThreeDays} />

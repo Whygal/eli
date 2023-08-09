@@ -37,7 +37,6 @@ const MainProgress = ({ percentage }) => {
 
     useEffect(() => {
         checkPrecentage(percentage);
-        debugger
     }, [percentage]);
 
     const fillLine1 = line1 * 0.86;
@@ -103,7 +102,6 @@ const MainProgress = ({ percentage }) => {
                     fontWeight: '200',
                     marginBottom: '20px',
                     color: '#213b7f',
-                    // color: var(--primary-color,#213b7f),
                 }}
             >₪400</p>
             <p className='rlt text-center'

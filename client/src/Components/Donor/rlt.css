@@ -13,3 +13,8 @@
     color: #8a8b8c;
     font-weight: normal;
 }
+
+.hover-link:hover{
+    text-decoration: underline !important;
+    color: #000000 !important;
+}

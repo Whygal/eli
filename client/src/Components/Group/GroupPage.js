@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { FormControl, Stack } from '@mui/material';
+import { FormControl, Stack, Container } from '@mui/material';
 import Button from '@mui/material/Button';
 import CountdownTimer from '../Clock/TimerCounter';
 import { useParams } from 'react-router-dom';
 import { useDonorContext } from '../../context/DonorContext';
 import DonorAndGroupTabsDisplay from "../Donor/DonorAndGroupTabsDisplay";
+import ProgressAndClock from "../Progress/ProgressAndClock";
 
 function GroupPage() {
     const { groupId, groupName } = useParams();
     const [amount, setAmount] = useState(0);
-    const [goal, setGoal] = useState(50000);
-    const [progress, setProgress] = useState(0);
 
     const THREE_DAYS_IN_MS = 3 * 24 * 60 * 60 * 1000;
     const NOW_IN_MS = new Date().getTime();
@@ -37,17 +36,10 @@ function GroupPage() {
                         </Stack>
                     </FormControl>
                 </div>
-                <div>
-                    <h2>שעון הספירה לאחור</h2>
-                    <CountdownTimer targetDate={dateTimeAfterThreeDays} />
-                    <div>
-                        <h3>היעד: {goal} שקלים</h3>
-                        <h4>ההתקדמות: {progress}%</h4>
-                    </div>
-                    <div>
-                        <progress value={progress} max={100} />
-                    </div>
-                </div>
+                <Container maxWidth="md" className="pt-3">
+                    <ProgressAndClock />
+                    <div className='m-5'></div>
+                </Container>
             </div>
             <div>
                 <DonorAndGroupTabsDisplay donors={donors} donorLoading={donorLoading} donorError={donorError} />

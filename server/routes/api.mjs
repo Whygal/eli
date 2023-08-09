@@ -1,6 +1,7 @@
 import express from 'express';
 import donor from '../controller/donor.mjs';
 import group from '../controller/group.mjs';
+import campaign from '../controller/campaign.mjs';
 
 const router = express.Router();
 
@@ -16,5 +17,9 @@ router.put('/donor/:id', donor.updateDonor);
 router.delete('/donor/:id', donor.deleteDonor);
 router.get('/donor/totalAmount', donor.geSumOfAllDonorAmaount);
 
+router.post('/campaign', campaign.createCampaign);
+router.get('/campaign', campaign.getCampaigns);
+router.get('/campaign/getById/:id', campaign.getCampaign);
+router.put('/campaign/:id', campaign.updateCampaign);   
 
 export default router;

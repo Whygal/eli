@@ -2,19 +2,19 @@ import DonorModel from '../model/donor.mjs';
 import GroupModel from '../model/group.mjs';
 
 
-// Create a new donor
-const createDonor = async (req, res) => {
-    try {
-        const donorData = req.body;
-        const donor = new DonorModel(donorData);
-        const savedDonor = await donor.save();
-        await GroupModel.findByIdAndUpdate({ _id: savedDonor.group }, { $push: { 'donors': savedDonor._id } })
-        res.send(savedDonor);
-    } catch (error) {
-        console.error('Error creating donor:', error);
-        res.status(500).json({ error: 'Failed to create donor' });
-    }
-};
+    // Create a new donor
+    const createDonor = async (req, res) => {
+        try {
+            const donorData = req.body;
+            const donor = new DonorModel(donorData);
+            const savedDonor = await donor.save();
+            await GroupModel.findByIdAndUpdate({ _id: savedDonor.group }, { $push: { 'donors': savedDonor._id } })
+            res.send(savedDonor);
+        } catch (error) {
+            console.error('Error creating donor:', error);
+            res.status(500).json({ error: 'Failed to create donor' });
+        }
+    };
 
 
 // Get all donors

@@ -123,7 +123,7 @@ const App = () => {
           <ContactForm />
         </form>
       </div> */}
-                  <div>
+                  {/* <div>
                     <h2>שעון הספירה לאחור</h2>
                     <CountdownTimer targetDate={dateTimeAfterThreeDays} />
                     <div>
@@ -132,19 +132,23 @@ const App = () => {
                     </div>
                     <div>
                       <progress value={progress} max={100} />
+
                     </div>
-                  </div>
-                  <div>
+                  </div> */}
+
+                  {/* <div>
                     <h2>רשימת התורמים</h2>
                     <div>
                       {donors.map((d) => {
                         <Donor key={d.id} />
                       })}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
+                {/* <ProgressAndClock /> */}
+
                 <div>
-                  <MainPage/>
+                  <MainPage />
                 </div>
                 <ButtomPayment />
               </>

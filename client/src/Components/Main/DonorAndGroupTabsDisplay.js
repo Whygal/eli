@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Tab, Tabs, Container } from '@mui/material';
-import DonorCard from './DonorCard';
+import DonorCard from '../Donor/DonorCard';
 import './rlt.css';
 import GroupCard from '../Group/GroupCard';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -40,23 +40,23 @@ function DonorAndGroupTabsDisplay({ donors, groups, donorLoading, donorError, gr
                 <div className='mt-4'>
                     {tabValue === 0 && (
                         <div className="row">
-                                {/* Render donors */}
-                                {donorLoading ? <CircularProgress /> : null}
-                                {donorError ? <p>Error loading donors: {donorError}</p> : null}
-                                {donors && donors.length > 0 && (
-                                    <CardGroup className='mb-5'>
-                                        {donors.map((donor, index) => (
-                                            <DonorCard
-                                                index={index}
-                                                name={donor.name}
-                                                amount={donor.amount}
-                                                groupId={donor.group?._id}
-                                                groupName={donor.group?.name}
-                                                comment={donor.comment}
-                                            />
-                                        ))}
-                                    </CardGroup>
-                                )}
+                            {/* Render donors */}
+                            {donorLoading ? <CircularProgress /> : null}
+                            {donorError ? <p>Error loading donors: {donorError}</p> : null}
+                            {donors && donors.length > 0 && (
+                                <CardGroup className=''>
+                                    {donors.map((donor, index) => (
+                                        <DonorCard
+                                            index={index}
+                                            name={donor.name}
+                                            amount={donor.amount}
+                                            groupId={donor.group?._id}
+                                            groupName={donor.group?.name}
+                                            comment={donor.comment}
+                                        />
+                                    ))}
+                                </CardGroup>
+                            )}
                         </div>
                     )}
                     {tabValue === 1 && (

@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useDonorContext } from '../../context/DonorContext';
 import { useGroupContext } from '../../context/GroupContext';
 import DonorAndGroupTabsDisplay from './DonorAndGroupTabsDisplay';
-import {  Container } from '@mui/material';
+import { Container } from '@mui/material';
 import ProgressAndClock from '../Progress/ProgressAndClock';
+import YoutubeEmbed from '../Video/YoutubeEmbed';
+
+
 function MainPage() {
     const { donors, loading: donorLoading, error: donorError, fetchData } = useDonorContext();
     const { groups, loading: groupLoading, error: groupError } = useGroupContext();
@@ -14,6 +17,8 @@ function MainPage() {
 
     return (
         <>
+            <YoutubeEmbed />
+
             <Container maxWidth="md" className="pt-3">
                 <ProgressAndClock />
                 <div className='m-5'></div>

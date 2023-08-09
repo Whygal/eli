@@ -7,7 +7,7 @@ import CountdownTimer from './Components/Clock/TimerCounter';
 import Context1 from "./context"
 import Donor from './Components/Donor/Donor';
 import GroupPage from './Components/Group/GroupPage';
-import MainPage from './Components/Donor/MainPage';
+import MainPage from './Components/Main/MainPage';
 import AdminPage from './Components/Admin/AdminPage';
 import ButtomPayment from './Components/Payment/ButtomPayment';
 
@@ -88,7 +88,7 @@ const App = () => {
       "func": "GetContributors"
     }));
 
-    xhr.onload = function() {
+    xhr.onload = function () {
       if (xhr.status === 200) {
         const contributors = JSON.parse(xhr.responseText);
         console.log(contributors);
@@ -117,36 +117,7 @@ const App = () => {
                       </Stack>
                     </FormControl>
                   </div>
-                  {/* <div>
-        <h2>הליך התשלום</h2>
-        <form onSubmit={handleSubmit}>
-          <ContactForm />
-        </form>
-      </div> */}
-                  {/* <div>
-                    <h2>שעון הספירה לאחור</h2>
-                    <CountdownTimer targetDate={dateTimeAfterThreeDays} />
-                    <div>
-                      <h3>היעד: {goal} שקלים</h3>
-                      <h4>ההתקדמות: {progress}%</h4>
-                    </div>
-                    <div>
-                      <progress value={progress} max={100} />
-
-                    </div>
-                  </div> */}
-
-                  {/* <div>
-                    <h2>רשימת התורמים</h2>
-                    <div>
-                      {donors.map((d) => {
-                        <Donor key={d.id} />
-                      })}
-                    </div>
-                  </div> */}
                 </div>
-                {/* <ProgressAndClock /> */}
-
                 <div>
                   <MainPage />
                 </div>

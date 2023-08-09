@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import CountdownTimer from '../Clock/TimerCounter';
 import { useParams } from 'react-router-dom';
 import { useDonorContext } from '../../context/DonorContext';
-import DonorAndGroupTabsDisplay from "../Donor/DonorAndGroupTabsDisplay";
+import DonorAndGroupTabsDisplay from "../Main/DonorAndGroupTabsDisplay";
 import ProgressAndClock from "../Progress/ProgressAndClock";
 
 function GroupPage() {

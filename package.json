@@ -148,9 +148,8 @@
     "server": "nodemon index.mjs",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
     "render-postbuild": "cd client && yarn install && yarn build"
-
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "ISC"
 }

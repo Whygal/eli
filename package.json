@@ -148,7 +148,7 @@
     "client": "cd ./client && npm start",
     "server": "nodemon index.mjs",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
-    "render-postbuild": "cd ./client && yarn run build"
+    "render-postbuild": "cd ./client && npm install -g yarn && yarn install && yarn run build"
   },
   "keywords": [],
   "author": "",

@@ -30,10 +30,10 @@ app.use(
     })
 );
 
-app.get('/health', (req, res) => {
-    console.log('health check');
-    res.send('Hello, Express!');
-});
+// app.get('/health', (req, res) => {
+//     console.log('health check');
+//     res.send('Hello, Express!');
+// });
 
 app.use('/api', router);
 

@@ -27,6 +27,8 @@ export default function DisplayTable() {
                         <TableCell align="right"> סכום התרומה</TableCell>
                         <TableCell align="right">תאריך</TableCell>
                         <TableCell align="right">שייך לקבוצה</TableCell>
+                        <TableCell align="right">עריכה</TableCell>
+                        <TableCell align="right">מחיקה</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -39,6 +41,8 @@ export default function DisplayTable() {
                             <TableCell align="right">{donor.amount}</TableCell>
                             <TableCell align="right">{donor.date}</TableCell>
                             <TableCell align="right">{donor.group.name}</TableCell>
+                            <TableCell align="right">{'ערוך'}</TableCell>
+                            <TableCell align="right">{'מחק'}</TableCell>
                         </TableRow>
                     ))
                         : <CircularProgress />}

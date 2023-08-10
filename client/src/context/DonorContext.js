@@ -92,8 +92,32 @@ export const DonorProvider = ({ children }) => {
         fetchTotalDonorAmount(); // Call the function here
     }, []);
 
+    const updateDonor = async (donorId, updatedDonor) => {
+    try {
+        const response = await axios.put(`http://localhost:5000/api/donor/${donorId}`, updatedDonor);
+        const updatedDonorIndex = state.donors.findIndex(donor => donor._id === donorId);
+        if (updatedDonorIndex !== -1) {
+            const updatedDonors = [...state.donors];
+            updatedDonors[updatedDonorIndex] = response.data;
+            dispatch({ type: 'FETCH_SUCCESS', payload: updatedDonors });
+        }
+    } catch (error) {
+        dispatch({ type: 'FETCH_ERROR', payload: error.message });
+    }
+};
+
+const deleteDonor = async (donorId) => {
+    try {
+        await axios.delete(`http://localhost:5000/api/donor/${donorId}`);
+        const updatedDonors = state.donors.filter(donor => donor._id !== donorId);
+        dispatch({ type: 'FETCH_SUCCESS', payload: updatedDonors });
+    } catch (error) {
+        dispatch({ type: 'FETCH_ERROR', payload: error.message });
+    }
+};
+
     return (
-        <DonorContext.Provider value={{ ...state, addDonor, fetchData, getDonorsByGroupId,fetchTotalDonorAmount }}>
+        <DonorContext.Provider value={{ ...state, addDonor, fetchData, getDonorsByGroupId,fetchTotalDonorAmount, updateDonor,deleteDonor }}>
             {children}
         </DonorContext.Provider>
     );

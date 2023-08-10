@@ -147,7 +147,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd ./client && npm start",
     "server": "nodemon index.mjs",
-    "dev": "npm run server",
+    "dev": "concurrently \"npm run sever\" ",
     "render-postbuild": "npm install"
   },
   "keywords": [],

@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
 
+const domain = `${window.location.origin}/api`
+
 
 // Initial state for the reducer
 const initialState = {
@@ -54,7 +56,7 @@ export const DonorProvider = ({ children }) => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/donor');
+            const response = await axios.get(`${domain}/donor`);
             dispatch({ type: 'FETCH_SUCCESS', payload: response.data });
         } catch (error) {
             dispatch({ type: 'FETCH_ERROR', payload: error.message });

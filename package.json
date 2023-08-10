@@ -148,7 +148,7 @@
     "client": "cd ./client && npm start",
     "server": "nodemon index.mjs",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
-    "render-postbuild": "npm install && cd ./client && npm install && npm run build"
+    "render-postbuild": "npm install && cd ./client && npm install && node -e \"console.log(process.cwd())\" && npx react-scripts build"
   },
   "keywords": [],
   "author": "",

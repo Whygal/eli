@@ -145,9 +145,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "cd ./client && npx react-scripts start",
+    "client": "cd ./client && react-scripts start",
     "server": "nodemon index.mjs",
-    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "render-postbuild": "npm install && cd ./client && npm install && node -e \"console.log(process.cwd())\" && npx react-scripts build"
   },
   "keywords": [],

@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
  
-const domain = `${window.location.origin}/api`;
+const domain = `https://back-ujng.onrender.com/api`;
 
 // Initial state for the reducer
 const initialState = {

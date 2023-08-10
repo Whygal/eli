@@ -5,7 +5,7 @@ import DonorAndGroupTabsDisplay from './DonorAndGroupTabsDisplay';
 import { Container } from '@mui/material';
 import ProgressAndClock from '../Progress/ProgressAndClock';
 import YoutubeEmbed from '../Video/YoutubeEmbed';
-
+import Banner from '../Banner/Banner';
 
 function MainPage() {
     const { donors, loading: donorLoading, error: donorError, fetchData } = useDonorContext();
@@ -17,6 +17,7 @@ function MainPage() {
 
     return (
         <>
+        <Banner />
             <YoutubeEmbed />
 
             <Container maxWidth="md" className="pt-3">

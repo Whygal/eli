@@ -6,7 +6,7 @@ import router from './server/routes/api.mjs';
 
 const app = express();
 dotenv.config();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.SERVER_PORT || 5000;
 
 const dbConnectionURL = process.env.DB_CONECCT;
 

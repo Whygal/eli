@@ -4,14 +4,14 @@ import Button from '@mui/material/Button';
 import { FormControl, Stack } from '@mui/material';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CountdownTimer from './Components/Clock/TimerCounter';
-import MyContext from "./context/MyContext"
+import {MyContext} from "./context/MyContext"
 import Donor from './Components/Donor/Donor';
 import GroupPage from './Components/Group/GroupPage';
 import MainPage from './Components/Main/MainPage';
 import AdminPage from './Components/Admin/AdminPage';
 import ButtomPayment from './Components/Payment/ButtomPayment';
 import Buttons from './Components/Buttons/Buttons';
-
+import {Drawer} from '@mui/material';
 const App = () => {
   const [amount, setAmount] = useState(0);
   const [goal, setGoal] = useState(50000);
@@ -30,7 +30,9 @@ const App = () => {
     xhr.send(JSON.stringify({
       "UserName": "Mercazhaitgalut@gmail.com",
       "Password": "elisin203044390",
-      "func": "GetContributors"
+      "func": "GetContributors",
+      "fromDate":"01/01/2021",
+      "toDate":"01/01/2022"
     }));
 
     xhr.onload = function () {
@@ -52,14 +54,16 @@ const App = () => {
               <>
                 <div className='page'>
                   <h1>!חב"ד בעתיקא ממשיכים בשיא המרץ</h1>
-                  <div className='Buttons'>
+                  <div>
                     <Buttons/>
                   </div>
                 </div>
                 <div>
                   <MainPage />
                 </div>
+                <div>
                 <ButtomPayment />
+                </div>
               </>
             } />
             <Route path="/:groupId/:groupName" element={<GroupPage />} />

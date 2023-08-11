@@ -24,6 +24,11 @@ const DonorSchema = new Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    comment: {
+        type: String,
+        minlength: 2,
+        maxlength: 255,
     }
 });
 

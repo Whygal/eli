@@ -2,19 +2,19 @@ import DonorModel from '../model/donor.mjs';
 import GroupModel from '../model/group.mjs';
 
 
-// Create a new donor
-const createDonor = async (req, res) => {
-    try {
-        const donorData = req.body;
-        const donor = new DonorModel(donorData);
-        const savedDonor = await donor.save();
-        await GroupModel.findByIdAndUpdate({ _id: savedDonor.group }, { $push: { 'donors': savedDonor._id } })
-        res.send(savedDonor);
-    } catch (error) {
-        console.error('Error creating donor:', error);
-        res.status(500).json({ error: 'Failed to create donor' });
-    }
-};
+    // Create a new donor
+    const createDonor = async (req, res) => {
+        try {
+            const donorData = req.body;
+            const donor = new DonorModel(donorData);
+            const savedDonor = await donor.save();
+            await GroupModel.findByIdAndUpdate({ _id: savedDonor.group }, { $push: { 'donors': savedDonor._id } })
+            res.send(savedDonor);
+        } catch (error) {
+            console.error('Error creating donor:', error);
+            res.status(500).json({ error: 'Failed to create donor' });
+        }
+    };
 
 
 // Get all donors
@@ -29,7 +29,7 @@ const getAllDonors = async (req, res) => {
 };
 
 // Get sum of all donor amounts
-const geSumOfAllDonorAmaount = async (req, res) => {
+const geSumOfAllDonorAmount = async (req, res) => {
     try {
         const result = await DonorModel.aggregate([
             {
@@ -112,7 +112,7 @@ const deleteDonor = async (req, res) => {
 export default {
     createDonor,
     getAllDonors,
-    geSumOfAllDonorAmaount,
+    geSumOfAllDonorAmount,
     getDonorsByGroupId,
     getDonorById,
     updateDonor,

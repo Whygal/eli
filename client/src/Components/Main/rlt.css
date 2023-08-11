@@ -1,0 +1,20 @@
+.rlt {
+    direction: rtl;
+    text-align: right;
+}
+
+.tab-active {
+    font-weight: bold;
+    color: #32444b;
+}
+
+.tab-inactive {
+    /* background-color: #f8f9fa; */
+    color: #8a8b8c;
+    font-weight: normal;
+}
+
+.hover-link:hover{
+    text-decoration: underline !important;
+    color: #000000 !important;
+}

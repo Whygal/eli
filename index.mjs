@@ -31,6 +31,7 @@ app.use(
 );
 
 app.get('/', (req, res) => {
+    console.log('health check');
     res.send('Hello, Express!');
 });
 

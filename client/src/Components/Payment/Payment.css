@@ -6,6 +6,24 @@
   cursor: pointer;
 }
 
+@media (min-width: 768px) {
+  .card-payment {
+    margin: 0 10px;
+  }
+
+  .card-container {
+    padding: 5px 40px;
+  }
+}
+@media (max-width: 600px) {
+  .card-payment {
+    padding: 0 10px;
+  }
+  .font-plan {
+    font-size: 12px;
+  }
+}
+
 .about-text-container {
   text-align: center;
   position: relative;
@@ -27,14 +45,14 @@
   background-color: transparent;
   padding: 0 10px;
   color: white;
-  background-color: #223F84;
+  background-color: #223f84;
   font-size: 14px;
 }
 .about-text:hover {
   background-color: transparent;
   padding: 0 10px;
   color: white;
-  background-color: #C9A140;
+  background-color: #c9a140;
   font-size: 14px;
 }
 

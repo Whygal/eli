@@ -62,3 +62,18 @@
   justify-content: center;
   overflow-x: auto; /* Add horizontal scrolling on smaller screens if needed */
 }
+
+.box-image {
+  width: 70px;
+  height: 70px;
+}
+
+@media (max-width: 600px) {
+  .box-image {
+    width: 60px;
+    height: 60px;
+  }
+  .font-plan {
+    font-size: 9px;
+  }
+}

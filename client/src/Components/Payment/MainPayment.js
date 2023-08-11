@@ -73,18 +73,16 @@ export default function MainPayment({ moked }) {
                   onClick={() => handlePayment(plan.campaignId)}
                 >
                   <div
-                    className="rounded-circle border mb-2"
+                    className="rounded-circle border mb-2 box-image"
                     style={{
-                      width: "70px",
-                      height: "70px",
                       textAlign: "center",
                     }}
                   >
                     <Image
                       src={plan.image}
                       roundedCircle
-                      width={"70px"}
-                      className="border"
+                    //   width={"70px"}
+                      className="box-image"
                     />
                   </div>
                   <div className="d-flex flex-column align-items-center text-white">

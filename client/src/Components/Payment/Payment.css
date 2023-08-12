@@ -92,3 +92,9 @@
     margin: 0 5px;
   }
 }
+
+@media (max-width: 384px) {
+  .font-plan {
+    font-size: 7px;
+  }
+}

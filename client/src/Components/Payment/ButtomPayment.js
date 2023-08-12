@@ -5,13 +5,15 @@ import Toolbar from "@mui/material/Toolbar";
 import PaymentPage from "./PaymentPage";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import { Drawer } from "@mui/material";
+import ShareLink from "../ShareLink/ShareLink";
 
 export default function ButtomPayment({ moked }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const [openShareDrawer, setOpenShareDrawer] = useState(false) 
   return (
     <Box sx={{ paddingBottom: "80px" }}>
       {!show && (
@@ -35,11 +37,17 @@ export default function ButtomPayment({ moked }) {
                 padding: "0 24px",
                 height: "48px",
                 fontSize: "16px",
-                // fontWeight: 'bold',
               }}
+            onClick={()=>setOpenShareDrawer(true)}
             >
               שתף
             </Button>
+            <Drawer 
+             anchor={"bottom"} 
+             open={openShareDrawer} 
+             onClose={()=>setOpenShareDrawer(false)}>
+              <ShareLink/>
+            </Drawer>
             <Button
               onClick={handleShow}
               variant="dark"

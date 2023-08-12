@@ -67,6 +67,16 @@
   height: 70px;
 }
 
+.hover-button:hover {
+  background-color: #223f84d4 !important;
+}
+.hoverBlue:hover {
+  background-color: #223f84 !important;
+}
+.marginButton {
+  margin: 0 15px;
+}
+
 @media (max-width: 600px) {
   .box-image {
     width: 60px;
@@ -74,5 +84,11 @@
   }
   .font-plan {
     font-size: 9px;
+  }
+  .marginButton {
+    margin: 0 15px;
+  }
+  .marginButton {
+    margin: 0 5px;
   }
 }

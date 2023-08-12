@@ -5,8 +5,8 @@ import {WhatsappShareButton, TwitterShareButton, FacebookShareButton,
 import {Typography, Box} from "@mui/material"
 
 import "./style.css"
-const ShareLink = () => {
-    const url = "https://chabadmerkazhhitgalut.onrender.com/" 
+const ShareLink = ({moked}) => {
+    const url = `https://www.chabadbr7.com/${moked ? moked : ''}`; 
   return (
     <div><Box display={"flex"} flexDirection={"row"} justifyContent={"center"} flexWrap={"wrap"}>
     <div className='ShareLink'>   

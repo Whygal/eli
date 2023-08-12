@@ -52,7 +52,7 @@ export default function ButtomPayment({ moked }) {
              anchor={"bottom"} 
              open={openShareDrawer} 
              onClose={()=>setOpenShareDrawer(false)}>
-              <ShareLink/>
+              <ShareLink moked={moked}/>
             </Drawer>
             <Button
               size="sm"

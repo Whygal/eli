@@ -47,9 +47,9 @@ export default function AddDonor() {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label> הערה (לזכות...) לא חובה</Form.Label>
+        <Form.Label> הקדשה</Form.Label>
         <Form.Control
-          type="number"
+          type="text"
           value={donorComment}
           onChange={(e) => setDonorComment(e.target.value)}
         />

@@ -10,7 +10,7 @@ import GroupPage from "./Components/Group/GroupPage";
 import MainPage from "./Components/Main/MainPage";
 import AdminPage from "./Components/Admin/AdminPage";
 import ButtomPayment from "./Components/Payment/ButtomPayment";
-
+import { MyContext } from "./context/MyContext";
 const App = () => {
   const [amount, setAmount] = useState(0);
   const [goal, setGoal] = useState(50000);
@@ -21,62 +21,6 @@ const App = () => {
   const NOW_IN_MS = new Date().getTime();
 
   const dateTimeAfterThreeDays = NOW_IN_MS + THREE_DAYS_IN_MS;
-
-  // useEffect(() => {
-  //   ContactForm.setConfig({
-  //     action: "https://example.com/contact",
-  //     method: "post",
-  //     fields: [
-  //       {
-  //         name: "name",
-  //         label: "Your Name",
-  //         placeholder: "Your Name",
-  //         required: true,
-  //       },
-  //       {
-  //         name: "email",
-  //         label: "Your Email",
-  //         placeholder: "Your Email",
-  //         required: true,
-  //       },
-  //       {
-  //         name: "amount",
-  //         label: "Amount",
-  //         placeholder: "Amount",
-  //         required: true,
-  //       },
-  //     ],
-  //   });
-  // }, []);
-
-  // const handleChange = (e) => {
-  //   setAmount(e.target.value);
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const formData = new FormData();
-  //   formData.append("name", e.target.elements.name.value);
-  //   formData.append("email", e.target.elements.email.value);
-  //   formData.append("amount", e.target.elements.amount.value);
-
-  //   ContactForm.send(formData, (response) => {
-  //     if (response.ok) {
-  //       setAmount(0);
-  //       setDonors([...donors, {
-  //         name: response.name,
-  //         amount: response.amount,
-  //       }]);
-  //     } else {
-  //       console.log(response);
-  //     }
-  //   });
-  // };
-
-  // const clock = ()=> {
-
-  // }
 
   function getContributors() {
     const xhr = new XMLHttpRequest();
@@ -102,7 +46,7 @@ const App = () => {
 
   return (
     <>
-      <Context1.Provider value={{ donors }}>
+      <MyContext.Provider value={{ amount, setAmount }}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<MainPage />} />
@@ -110,7 +54,7 @@ const App = () => {
             <Route path="/admin/*" element={<AdminPage />} />
           </Routes>
         </BrowserRouter>
-      </Context1.Provider>
+      </MyContext.Provider>
     </>
   );
 };

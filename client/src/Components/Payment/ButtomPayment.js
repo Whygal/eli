@@ -9,13 +9,15 @@ import bitImage from "../../images/bit.png";
 import paypalImage from "../../images/paypal.png";
 import cashAppImage from "../../images/cashApp.png";
 import { Link } from "react-router-dom";
+import { Drawer } from "@mui/material";
+import ShareLink from "../ShareLink/ShareLink";
 
 export default function ButtomPayment({ moked }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const [openShareDrawer, setOpenShareDrawer] = useState(false) 
   return (
     <Box sx={{ paddingBottom: "80px" }}>
       {!show && (
@@ -42,9 +44,16 @@ export default function ButtomPayment({ moked }) {
                 height: "48px",
                 fontSize: "16px",
               }}
+            onClick={()=>setOpenShareDrawer(true)}
             >
               שתפו
             </Button>
+            <Drawer 
+             anchor={"bottom"} 
+             open={openShareDrawer} 
+             onClose={()=>setOpenShareDrawer(false)}>
+              <ShareLink/>
+            </Drawer>
             <Button
               size="sm"
               onClick={handleShow}

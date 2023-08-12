@@ -98,6 +98,7 @@
     "range-parser": "^1.2.1",
     "raw-body": "^2.5.1",
     "react-scripts": "^5.0.1",
+    "react-share": "^4.4.1",
     "readdirp": "^3.6.0",
     "regenerator-runtime": "^0.13.11",
     "require-directory": "^2.1.1",

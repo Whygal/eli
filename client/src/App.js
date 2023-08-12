@@ -10,7 +10,7 @@ import GroupPage from "./Components/Group/GroupPage";
 import MainPage from "./Components/Main/MainPage";
 import AdminPage from "./Components/Admin/AdminPage";
 import ButtomPayment from "./Components/Payment/ButtomPayment";
-
+import { MyContext } from "./context/MyContext";
 const App = () => {
   const [amount, setAmount] = useState(0);
   const [goal, setGoal] = useState(50000);

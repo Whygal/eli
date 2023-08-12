@@ -42,7 +42,7 @@ export default function AdminPage() {
         {location.pathname === "/admin" && <CampaignDetails />}
         {location.pathname === "/admin/donor" && <DisplayTable />}
         {location.pathname === "/admin/group" && <DisplayTableGroup />}
-        {location.pathname === "/admin/donor/new" && <AddDonor />}
+        {/* {location.pathname === "/admin/donor/new" && <AddDonor />} */}
       </main>
     </div>
   );

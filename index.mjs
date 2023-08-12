@@ -30,7 +30,7 @@ app.use(
     })
 );
 
-app.get('/', (req, res) => {
+app.get('/health', (req, res) => {
     console.log('health check');
     res.send('Hello, Express!');
 });

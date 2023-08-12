@@ -1,0 +1,46 @@
+.card-payment:hover {
+  background-color: #f5e283;
+}
+.card-payment {
+  border: none !important;
+  cursor: pointer;
+}
+
+.about-text-container {
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.about-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background-color: black; */
+  z-index: -1;
+}
+
+.about-text {
+  background-color: transparent;
+  padding: 0 10px;
+  color: white;
+  background-color: #223F84;
+  font-size: 14px;
+}
+.about-text:hover {
+  background-color: transparent;
+  padding: 0 10px;
+  color: white;
+  background-color: #C9A140;
+  font-size: 14px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent cards from wrapping to the next line */
+  justify-content: center;
+  overflow-x: auto; /* Add horizontal scrolling on smaller screens if needed */
+}

@@ -53,10 +53,17 @@ const App = () => {
             <Route path="/" element={
               <>
                 <div className='page'>
-                  <h1>!חב"ד בעתיקא ממשיכים בשיא המרץ</h1>
-                  <div>
-                    <Buttons/>
-                  </div>
+                  {/* <h1>!חב"ד בעתיקא ממשיכים בשיא המרץ</h1> */}
+                  {/* <div className='Buttons'>
+                    <FormControl>
+                      <Stack spacing={2} sx={{ display: "flex", flexDirection: "row-reverse", flexWrap: "wrap", justifyContent: "center" }}>
+                        <Button variant="contained" sx={{ marginTop: "2em" }} onClick={() => setAmount(120)}>תרום 120 שקלים</Button>
+                        <Button variant="contained" onClick={() => setAmount(300)}>תרום 300 שקלים</Button>
+                        <Button variant="contained" onClick={() => setAmount(770)}>תרום 770 שקלים</Button>
+                        <Button variant="contained" onClick={() => setAmount(null)}>תרום סכום אחר</Button>
+                      </Stack>
+                    </FormControl>
+                  </div> */}
                 </div>
                 <div>
                   <MainPage />

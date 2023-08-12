@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
 
+const domain = `https://back-ujng.onrender.com/api`;
+
 // Initial state for the reducer
 const initialState = {
     groups: [],
@@ -38,7 +40,7 @@ export const GroupProvider = ({ children }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/group');
+                const response = await axios.get(`${domain}/group`);
                 dispatch({ type: 'FETCH_SUCCESS', payload: response.data });
             } catch (error) {
                 dispatch({ type: 'FETCH_ERROR', payload: error.message });

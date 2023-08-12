@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
-
+ 
+const domain = `https://back-ujng.onrender.com/api`;
 
 // Initial state for the reducer
 const initialState = {
@@ -54,7 +55,7 @@ export const DonorProvider = ({ children }) => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/donor');
+            const response = await axios.get(`${domain}/donor`);
             dispatch({ type: 'FETCH_SUCCESS', payload: response.data });
         } catch (error) {
             dispatch({ type: 'FETCH_ERROR', payload: error.message });
@@ -63,7 +64,7 @@ export const DonorProvider = ({ children }) => {
 
     const getDonorsByGroupId = async (groupId) => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/donor/groupId/${groupId}`);
+            const response = await axios.get(`${domain}/donor/groupId/${groupId}`);
             dispatch({ type: 'FETCH_SUCCESS', payload: response.data });
         } catch (error) {
             dispatch({ type: 'FETCH_ERROR', payload: error.message });
@@ -72,7 +73,7 @@ export const DonorProvider = ({ children }) => {
 
     const addDonor = async (newDonor) => {
         try {
-            const response = await axios.post('http://localhost:5000/api/donor', newDonor);
+            const response = await axios.post(`${domain}/donor`, newDonor);
             dispatch({ type: 'ADD_DONOR_SUCCESS', payload: response.data });
         } catch (error) {
             dispatch({ type: 'ADD_DONOR_ERROR' });
@@ -81,7 +82,7 @@ export const DonorProvider = ({ children }) => {
 
  const fetchTotalDonorAmount = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/donor/totalAmount');
+            const response = await axios.get(`${domain}/donor/totalAmount`);
             dispatch({ type: 'FETCH_TOTAL_AMOUNT_SUCCESS', payload: response.data.totalAmount });
         } catch (error) {
             dispatch({ type: 'FETCH_TOTAL_AMOUNT_ERROR', payload: error.message });
@@ -92,8 +93,32 @@ export const DonorProvider = ({ children }) => {
         fetchTotalDonorAmount(); // Call the function here
     }, []);
 
+    const updateDonor = async (donorId, updatedDonor) => {
+    try {
+        const response = await axios.put(`${domain}/donor/${donorId}`, updatedDonor);
+        const updatedDonorIndex = state.donors.findIndex(donor => donor._id === donorId);
+        if (updatedDonorIndex !== -1) {
+            const updatedDonors = [...state.donors];
+            updatedDonors[updatedDonorIndex] = response.data;
+            dispatch({ type: 'FETCH_SUCCESS', payload: updatedDonors });
+        }
+    } catch (error) {
+        dispatch({ type: 'FETCH_ERROR', payload: error.message });
+    }
+};
+
+const deleteDonor = async (donorId) => {
+    try {
+        await axios.delete(`${domain}/donor/${donorId}`);
+        const updatedDonors = state.donors.filter(donor => donor._id !== donorId);
+        dispatch({ type: 'FETCH_SUCCESS', payload: updatedDonors });
+    } catch (error) {
+        dispatch({ type: 'FETCH_ERROR', payload: error.message });
+    }
+};
+
     return (
-        <DonorContext.Provider value={{ ...state, addDonor, fetchData, getDonorsByGroupId,fetchTotalDonorAmount }}>
+        <DonorContext.Provider value={{ ...state, addDonor, fetchData, getDonorsByGroupId,fetchTotalDonorAmount, updateDonor,deleteDonor }}>
             {children}
         </DonorContext.Provider>
     );

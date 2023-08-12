@@ -12,7 +12,6 @@ import { useGroupContext } from '../../context/GroupContext';
 
 export default function DisplayTable() {
     const { donors, loading: donorLoading, error: donorError, fetchData } = useDonorContext();
-    const { groups, loading: groupLoading, error: groupError } = useGroupContext();
 
     useEffect(() => {
         fetchData();

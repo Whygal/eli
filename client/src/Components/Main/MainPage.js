@@ -7,6 +7,7 @@ import ProgressAndClock from "../Progress/ProgressAndClock";
 import YoutubeEmbed from "../Video/YoutubeEmbed";
 import Banner from "../Banner/Banner";
 import MainPayment from "../Payment/MainPayment";
+import ButtomPayment from "../Payment/ButtomPayment";
 
 function MainPage() {
   const {
@@ -41,6 +42,7 @@ function MainPage() {
         groupLoading={groupLoading}
         groupError={groupError}
       />
+      <ButtomPayment />
     </>
   );
 }

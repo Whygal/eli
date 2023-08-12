@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
 
-const domain = `https://back-ujng.onrender.com/api`;
+const domain = `https://back-5zii.onrender.com/api`;
+// const domain = `http://localhost:5000/api`;
 
 const initialState = {
     campaigns: {},

@@ -4,7 +4,7 @@ import { useCampaignContext } from "../../context/CampaignContext";
 
 const MainProgress = () => {
   const { sumOfAllDonorAmount } = useDonorContext();
-  const { campaigns } = useCampaignContext();
+    const { campaigns } = useCampaignContext();
   const total = campaigns.goal;
   const percentage = (sumOfAllDonorAmount / total) * 100;
 

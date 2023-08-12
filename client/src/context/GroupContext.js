@@ -1,63 +1,91 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
-import axios from 'axios';
+import React, { createContext, useContext, useReducer, useEffect } from "react";
+import axios from "axios";
 
-const domain = `https://back-ujng.onrender.com/api`;
+const domain = `https://back-5zii.onrender.com/api`;
 
-// Initial state for the reducer
 const initialState = {
-    groups: [],
-    loading: true,
-    error: null,
+  groups: [],
+  loading: true,
+  error: null,
 };
 
-// Reducer function
 const groupReducer = (state, action) => {
-    switch (action.type) {
-        case 'FETCH_SUCCESS':
-            return {
-                ...state,
-                groups: action.payload,
-                loading: false,
-                error: null,
-            };
-        case 'FETCH_ERROR':
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case "FETCH_SUCCESS":
+      return {
+        ...state,
+        groups: action.payload,
+        loading: false,
+        error: null,
+      };
+    case "FETCH_ERROR":
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
 };
 
 const GroupContext = createContext();
 
 export const GroupProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(groupReducer, initialState);
+  const [state, dispatch] = useReducer(groupReducer, initialState);
 
+  const createGroup = async (groupData) => {
+    try {
+      const response = await axios.post(`${domain}/group`, groupData);
+      fetchData();
+    } catch (error) {
+      console.error("Error creating group:", error);
+    }
+  };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`${domain}/group`);
-                dispatch({ type: 'FETCH_SUCCESS', payload: response.data });
-            } catch (error) {
-                dispatch({ type: 'FETCH_ERROR', payload: error.message });
-            }
-        };
-        fetchData();
-    }, []);
+  const updateGroup = async (groupId, updateData) => {
+    try {
+      const response = await axios.put(
+        `${domain}/group/${groupId}`,
+        updateData
+      );
+      fetchData();
+    } catch (error) {
+      console.error("Error updating group:", error);
+    }
+  };
 
+  const deleteGroup = async (groupId) => {
+    try {
+      const response = await axios.delete(`${domain}/group/${groupId}`);
+      fetchData();
+    } catch (error) {
+      console.error("Error deleting group:", error);
+    }
+  };
 
-    return (
-        <GroupContext.Provider value={state}>
-            {children}
-        </GroupContext.Provider>
-    );
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${domain}/group`);
+      dispatch({ type: "FETCH_SUCCESS", payload: response.data });
+    } catch (error) {
+      dispatch({ type: "FETCH_ERROR", payload: error.message });
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return (
+    <GroupContext.Provider
+      value={{ ...state, createGroup, updateGroup, deleteGroup }}
+    >
+      {children}
+    </GroupContext.Provider>
+  );
 };
 
-
 export const useGroupContext = () => {
-    return useContext(GroupContext);
+  return useContext(GroupContext);
 };

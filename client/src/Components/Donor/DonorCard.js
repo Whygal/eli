@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import Hidden from "@mui/material/Hidden";
 
-function DonorCard({ index, name, amount, groupId, groupName, comment }) {
+function DonorCard({ index, name, amount, groupId, groupName,groupNameHebrew, comment }) {
   return (
     <>
       <span className="col-md-6 px-3 py-2" key={index}>
@@ -26,7 +26,7 @@ function DonorCard({ index, name, amount, groupId, groupName, comment }) {
                         className="text-decoration-none hover-link text-secondary"
                         to={`/${groupId}/${groupName}`}
                       >
-                        {groupName}
+                        {groupNameHebrew}
                       </Link>
                     </span>
                   </p>

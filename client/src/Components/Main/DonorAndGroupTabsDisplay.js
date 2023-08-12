@@ -62,6 +62,7 @@ function DonorAndGroupTabsDisplay({
                       amount={donor.amount}
                       groupId={donor.group?._id}
                       groupName={donor.group?.name}
+                      groupNameHebrew={donor?.group?.nameHebrew}
                       comment={donor.comment}
                     />
                   ))}
@@ -86,6 +87,7 @@ function DonorAndGroupTabsDisplay({
                       key={index}
                       id={group._id}
                       name={group.name}
+                      nameHebrew={group.nameHebrew}
                       sumDonors={group.donorCount}
                       goal={group.goal}
                       totalDonorAmount={group.totalDonorAmount}

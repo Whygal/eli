@@ -51,7 +51,9 @@ export default function DisplayTableGroup() {
             <TableRow>
               <TableCell align="right">שם הקבוצה בקשר (באנגלית) </TableCell>
               <TableCell align="right"> שם הקבוצה (בעברית)</TableCell>
-              <TableCell align="right">מטרה</TableCell>
+              <TableCell align="right">יעד</TableCell>
+              <TableCell align="right">כמות תורמים</TableCell>
+              <TableCell align="right">סכום הגיוס</TableCell>
               <TableCell align="right">עריכה</TableCell>
               <TableCell align="right">מחיקה</TableCell>
             </TableRow>
@@ -78,6 +80,8 @@ export default function DisplayTableGroup() {
                   <TableCell align="right">{group.name}</TableCell>
                   <TableCell align="right">{group.nameHebrew}</TableCell>
                   <TableCell align="right">{group.goal}</TableCell>
+                  <TableCell align="right">{group.donorCount}</TableCell>
+                  <TableCell align="right">{group.totalDonorAmount}</TableCell>
                   <TableCell align="right">
                     {editedGroup && editedGroup._id === group._id ? (
                       <Button

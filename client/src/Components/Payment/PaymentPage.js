@@ -1,7 +1,7 @@
 import React from 'react';
 
 function PaymentPage({moked, campaignId}) {
-    const defaultGroupName = 'כללי';
+    const defaultGroupName = "Clali";
 
     return (
       <iframe

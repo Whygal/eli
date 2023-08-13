@@ -19,7 +19,7 @@ export default function ButtomPayment({ moked }) {
   const handleShow = () => setShow(true);
   const [openShareDrawer, setOpenShareDrawer] = useState(false) 
   return (
-    <Box sx={{ paddingBottom: "80px" }}>
+    <Box sx={{ paddingBottom: "110px" }}>
       {!show && (
         <AppBar
           position="fixed"

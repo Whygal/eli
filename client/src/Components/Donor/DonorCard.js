@@ -5,6 +5,26 @@ import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import Hidden from "@mui/material/Hidden";
 
+export function DateComparison({ dateStr }) {
+  const currentDate = new Date();
+  const comparedDate = new Date(dateStr);
+  const timeDifference = currentDate - comparedDate;
+
+  if (timeDifference >= 86400000) {
+    const daysAgo = Math.floor(timeDifference / 86400000);
+    return <span>{daysAgo === 1 ? "לפני יום 1" : `לפני ${daysAgo} ימים`}</span>;
+  } else if (timeDifference >= 3600000) { // Use >= here, not =
+    const hoursAgo = Math.floor(timeDifference / 3600000);
+    return <span>לפני {hoursAgo} שעות</span>;
+  } else if (timeDifference >= 60000) {
+    const minutesAgo = Math.floor(timeDifference / 60000);
+    return <span>לפני {minutesAgo} דקות</span>;
+  } else {
+    const secondsAgo = Math.floor(timeDifference / 1000);
+    return <span>לפני {secondsAgo} שניות</span>;
+  }
+}
+
 function DonorCard({
   index,
   name,
@@ -13,6 +33,7 @@ function DonorCard({
   groupName,
   groupNameHebrew,
   comment,
+  date,
 }) {
   return (
     <>
@@ -27,21 +48,20 @@ function DonorCard({
                 <Grid item xs={8} md={8}>
                   <h5 className="p-2">{name}</h5>
                   <p className="">{comment}</p>
-                                    {groupNameHebrew === "כללי" ? (
+                  {groupNameHebrew === "כללי" ? (
                     ""
                   ) : (
-
-                  <p className="text-secondary">
-                    ע"י{" "}
-                    <span className="">
-                      <Link
-                        className="text-decoration-none hover-link text-secondary"
-                        to={`/${groupId}/${groupName}`}
-                      >
-                        {groupNameHebrew}
-                      </Link>
-                    </span>
-                  </p>
+                    <p className="text-secondary">
+                      ע"י{" "}
+                      <span className="">
+                        <Link
+                          className="text-decoration-none hover-link text-secondary"
+                          to={`/${groupId}/${groupName}`}
+                        >
+                          {groupNameHebrew}
+                        </Link>
+                      </span>
+                    </p>
                   )}
                 </Grid>
                 <Grid item xs="auto">
@@ -81,6 +101,10 @@ function DonorCard({
                   <p className="py-2">₪{Number(amount).toLocaleString()}</p>
                 </Grid>
               </Grid>
+              <small className="text-secondary">
+                {" "}
+                <DateComparison dateStr={date} />
+              </small>
             </div>
           </Card>
         </Hidden>

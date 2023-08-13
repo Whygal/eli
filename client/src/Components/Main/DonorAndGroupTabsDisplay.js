@@ -70,6 +70,7 @@ function DonorAndGroupTabsDisplay({
                       groupName={donor.group?.name}
                       groupNameHebrew={donor?.group?.nameHebrew}
                       comment={donor.comment}
+                      date={donor.date}
                     />
                   ))}
                 </CardGroup>

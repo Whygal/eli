@@ -36,7 +36,7 @@ const getAllGroups = async (req, res) => {
         },
       },
       {
-        $sort: { nameHebrew: 1 },
+        $sort: { totalDonorAmount: -1 },
       },
     ]);
     res.json(groups);

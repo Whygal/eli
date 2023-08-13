@@ -45,7 +45,7 @@ function DonorCard({
                   )}
                 </Grid>
                 <Grid item xs="auto">
-                  <p className="py-2">₪{amount}</p>
+                  <p className="py-2">₪{Number(amount).toLocaleString()}</p>
                 </Grid>
               </Grid>
             </div>
@@ -78,7 +78,7 @@ function DonorCard({
                   )}
                 </Grid>
                 <Grid item xs="auto">
-                  <p className="py-2">₪{amount}</p>
+                  <p className="py-2">₪{Number(amount).toLocaleString()}</p>
                 </Grid>
               </Grid>
             </div>

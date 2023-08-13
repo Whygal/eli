@@ -79,9 +79,9 @@ export default function DisplayTableGroup() {
                 >
                   <TableCell align="right">{group.name}</TableCell>
                   <TableCell align="right">{group.nameHebrew}</TableCell>
-                  <TableCell align="right">{group.goal}</TableCell>
-                  <TableCell align="right">{group.donorCount}</TableCell>
-                  <TableCell align="right">{group.totalDonorAmount}</TableCell>
+                  <TableCell align="right">{Number(group.goal).toLocaleString()}</TableCell>
+                  <TableCell align="right">{Number(group.donorCount).toLocaleString()}</TableCell>
+                  <TableCell align="right">{Number(group.totalDonorAmount).toLocaleString()}</TableCell>
                   <TableCell align="right">
                     {editedGroup && editedGroup._id === group._id ? (
                       <Button

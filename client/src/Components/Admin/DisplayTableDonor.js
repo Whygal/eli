@@ -84,7 +84,7 @@ export default function DisplayTableDonor() {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell align="right">{donor.name}</TableCell>
-                  <TableCell align="right">{donor.amount}</TableCell>
+                  <TableCell align="right">{Number(donor.amount).toLocaleString()}</TableCell>
                   <TableCell align="right">
                     {donor?.group?.nameHebrew}
                   </TableCell>

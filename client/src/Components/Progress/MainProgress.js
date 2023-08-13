@@ -187,7 +187,7 @@ const MainProgress = () => {
           color: "#213b7f",
         }}
       >
-        ₪{sumOfAllDonorAmount ?? 0}
+        ₪{Number(sumOfAllDonorAmount).toLocaleString() ?? 0}
       </p>
       <p
         className="rlt text-center"
@@ -200,8 +200,8 @@ const MainProgress = () => {
           textTransform: "uppercase",
         }}
       >
-        {Math.round(percentage)}% מהיעד ₪
-        {Number(campaigns.goal).toLocaleString()}
+        {Math.round(percentage ?? 0)}% מהיעד ₪
+        {Number(campaigns.goal ?? 0).toLocaleString()}
       </p>
     </div>
   );

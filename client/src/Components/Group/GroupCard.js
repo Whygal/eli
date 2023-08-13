@@ -36,14 +36,14 @@ function GroupCard({ id, name,nameHebrew, sumDonors, goal, totalDonorAmount }) {
           </Grid>
           <Grid container spacing={1} className="pt-3">
             <Grid item xs={3}>
-              {sumDonors}
+              {Number(sumDonors).toLocaleString()}
               <br />
               תורמים
             </Grid>
             <Grid item xs={6}>
-              ₪{totalDonorAmount ?? 0}
+              ₪{Number(totalDonorAmount).toLocaleString() ?? 0}
               <br />
-              מתוך יעד של ₪{goal} גויס
+              מתוך יעד של ₪{Number(goal).toLocaleString()} גויס
             </Grid>
             <Grid item xs={3}>
               <div className="pt-2">

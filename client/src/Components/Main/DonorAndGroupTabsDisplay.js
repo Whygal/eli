@@ -21,6 +21,12 @@ function DonorAndGroupTabsDisplay({
     setTabValue(newValue);
   };
 
+   const excludedGroupId = "64d829cf78bf9b3177e7f7e6";
+
+   const filteredGroups = groups?.filter(
+     (group) => group._id !== excludedGroupId
+   );
+
   return (
     <div className="bg-body-secondary rlt">
       <Container maxWidth="md" className="pt-3">
@@ -62,6 +68,7 @@ function DonorAndGroupTabsDisplay({
                       amount={donor.amount}
                       groupId={donor.group?._id}
                       groupName={donor.group?.name}
+                      groupNameHebrew={donor?.group?.nameHebrew}
                       comment={donor.comment}
                     />
                   ))}
@@ -79,13 +86,14 @@ function DonorAndGroupTabsDisplay({
               {/* Render groups */}
               {groupLoading ? <CircularProgress /> : null}
               {groupError ? <p>Error loading groups: {groupError}</p> : null}
-              {groups && groups.length > 0 && (
+              {filteredGroups && filteredGroups.length > 0 && (
                 <div className="row">
-                  {groups.map((group, index) => (
+                  {filteredGroups.map((group, index) => (
                     <GroupCard
                       key={index}
                       id={group._id}
                       name={group.name}
+                      nameHebrew={group.nameHebrew}
                       sumDonors={group.donorCount}
                       goal={group.goal}
                       totalDonorAmount={group.totalDonorAmount}

@@ -1,6 +1,5 @@
 import React from "react";
-import DisplayTable from "./DisplayTable";
-import AddDonor from "./AddDonor";
+import DisplayTableDonor from "./DisplayTableDonor";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import {
   BrowserRouter as Router,
@@ -10,6 +9,8 @@ import {
 } from "react-router-dom";
 import DisplayTableGroup from "./DisplayTableGroup";
 import CampaignDetails from "./CampaignDetails";
+import { NavLink } from "react-router-dom";
+
 
 export default function AdminPage() {
   const location = useLocation();
@@ -26,12 +27,27 @@ export default function AdminPage() {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="px-5">
-                  <Link to="/admin/donor" className="nav-link">
+                  <NavLink
+                    to="/admin/donor"
+                    className="nav-link mx-4"
+                    activeClassName="active-tab"
+                  >
                     תורמים
-                  </Link>
-                  <Link to="/admin/group" className="nav-link">
+                  </NavLink>
+                  <NavLink
+                    to="/admin/group"
+                    className="nav-link mx-4"
+                    activeClassName="active-tab"
+                  >
                     קבוצות
-                  </Link>
+                  </NavLink>
+                  <NavLink
+                    to="/"
+                    className="nav-link mx-4"
+                    activeClassName="active-tab"
+                  >
+                    עבור לדף הקמפיין הראשי
+                  </NavLink>
                 </Nav>
               </Navbar.Collapse>
             </Container>
@@ -40,9 +56,8 @@ export default function AdminPage() {
       </header>
       <main>
         {location.pathname === "/admin" && <CampaignDetails />}
-        {location.pathname === "/admin/donor" && <DisplayTable />}
+        {location.pathname === "/admin/donor" && <DisplayTableDonor />}
         {location.pathname === "/admin/group" && <DisplayTableGroup />}
-        {location.pathname === "/admin/donor/new" && <AddDonor />}
       </main>
     </div>
   );

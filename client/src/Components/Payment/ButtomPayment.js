@@ -5,6 +5,10 @@ import Toolbar from "@mui/material/Toolbar";
 import PaymentPage from "./PaymentPage";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import bitImage from "../../images/bit.png";
+import paypalImage from "../../images/paypal.png";
+import cashAppImage from "../../images/cashApp.png";
+import { Link } from "react-router-dom";
 import { Drawer } from "@mui/material";
 import ShareLink from "../ShareLink/ShareLink";
 
@@ -15,7 +19,7 @@ export default function ButtomPayment({ moked }) {
   const handleShow = () => setShow(true);
   const [openShareDrawer, setOpenShareDrawer] = useState(false) 
   return (
-    <Box sx={{ paddingBottom: "80px" }}>
+    <Box sx={{ paddingBottom: "110px" }}>
       {!show && (
         <AppBar
           position="fixed"
@@ -26,43 +30,88 @@ export default function ButtomPayment({ moked }) {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              padding: "20px",
+              padding: "30px 0px",
             }}
           >
             <Button
-              variant="dark"
-              className="me-3"
+              size="sm"
+              className="hoverBlue marginButton"
               style={{
                 borderRadius: "50px",
-                padding: "0 24px",
+                backgroundColor: "#C9A140",
+                border: "1px solid #223f84",
+                padding: "0 20px",
                 height: "48px",
                 fontSize: "16px",
               }}
             onClick={()=>setOpenShareDrawer(true)}
             >
-              שתף
+              שתפו
             </Button>
             <Drawer 
              anchor={"bottom"} 
              open={openShareDrawer} 
              onClose={()=>setOpenShareDrawer(false)}>
-              <ShareLink/>
+              <ShareLink moked={moked}/>
             </Drawer>
             <Button
+              size="sm"
               onClick={handleShow}
-              variant="dark"
-              className="me-3"
+              className="hover-button marginButton"
               style={{
+                backgroundColor: "#223f84",
+                border: "1px solid #223f84",
                 borderRadius: "50px",
                 padding: "0 24px",
                 height: "48px",
-                width: "180px",
                 fontSize: "16px",
-                // fontWeight: 'bold',
               }}
             >
-              תרום
+              תרומה
             </Button>
+
+            <Link
+              to={`https://meshulam.co.il/s/229a4182-b98c-d8fa-649d-698e46fb6364`}
+              className="marginButton"
+            >
+              <img
+                src={bitImage}
+                style={{
+                  borderRadius: "50%",
+                  // padding: "0 24px",
+                  height: "50px",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                }}
+              ></img>
+            </Link>
+            <Link
+              to={`https://paypal.me/eliyahusingavy`}
+              className="marginButton"
+            >
+              <img
+                src={paypalImage}
+                style={{
+                  borderRadius: "50%",
+                  padding: "0px",
+                  height: "50px",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                }}
+              ></img>
+            </Link>
+            <Link to={`https://cash.app/$Elisingavy`} className="marginButton">
+              <img
+                src={cashAppImage}
+                style={{
+                  borderRadius: "50%",
+                  // padding: "0px 20px",
+                  height: "50px",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                }}
+              ></img>
+            </Link>
           </Toolbar>
         </AppBar>
       )}

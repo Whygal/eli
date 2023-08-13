@@ -7,6 +7,7 @@ const initialState = {
   groups: [],
   loading: true,
   error: null,
+  group: {},
 };
 
 const groupReducer = (state, action) => {
@@ -24,6 +25,14 @@ const groupReducer = (state, action) => {
         loading: false,
         error: action.payload,
       };
+    case "GET_GROUP_SUCCESS":
+      return {
+        ...state,
+        group: action.payload,
+        loading: false,
+        error: null,
+      };
+
     default:
       return state;
   }
@@ -40,6 +49,16 @@ export const GroupProvider = ({ children }) => {
       fetchData();
     } catch (error) {
       console.error("Error creating group:", error);
+    }
+  };
+
+  const getGroupByID = async (groupId) => {
+    try {
+      const response = await axios.get(`${domain}/group/${groupId}`);
+      dispatch({ type: "GET_GROUP_SUCCESS", payload: response.data });
+    } catch (error) {
+      dispatch({ type: "FETCH_ERROR", payload: error.message });
+      console.error("Error get Group By ID:", error);
     }
   };
 
@@ -79,7 +98,7 @@ export const GroupProvider = ({ children }) => {
 
   return (
     <GroupContext.Provider
-      value={{ ...state, createGroup, updateGroup, deleteGroup }}
+      value={{ ...state, createGroup, updateGroup, deleteGroup, getGroupByID }}
     >
       {children}
     </GroupContext.Provider>

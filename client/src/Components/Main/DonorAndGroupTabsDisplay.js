@@ -23,7 +23,7 @@ function DonorAndGroupTabsDisplay({
 
    const excludedGroupId = "64d829cf78bf9b3177e7f7e6";
 
-   const filteredGroups = groups.filter(
+   const filteredGroups = groups?.filter(
      (group) => group._id !== excludedGroupId
    );
 

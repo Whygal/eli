@@ -14,11 +14,11 @@ function GroupCard({ id, name,nameHebrew, sumDonors, goal, totalDonorAmount }) {
 
 
     return (
-      <div className="col-md-6 pb-4 ">
+      <div className="col-md-6 pb-4 rlt">
         <Paper className="shadow p-3 rounded">
           <Grid container spacing={1}>
             <Grid item xs="auto">
-              <Avatar>{nameHebrew.charAt(0).toUpperCase()}</Avatar>
+              <Avatar>{nameHebrew?.charAt(0).toUpperCase()}</Avatar>
             </Grid>
             <Grid item xs={8} md={8}>
               <h4 className="p-2">{nameHebrew}</h4>

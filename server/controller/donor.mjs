@@ -18,17 +18,42 @@ import GroupModel from '../model/group.mjs';
 
 
 // Get all donors
+// Get donors with dynamic sorting, limit, and ability to get more donors
 const getAllDonors = async (req, res) => {
     try {
-        const donors = await DonorModel.find()
-          .populate("group")
-          .sort({ date: -1 });
-        res.send(donors);
+        const { sortBy = 'date', sortOrder = 'desc', limit = 15, offset = 0 } = req.query;
+
+        let sortOptions = {};
+        if (sortBy === 'date') {
+            sortOptions.date = sortOrder === 'asc' ? 1 : -1;
+        } else if (sortBy === 'amount') {
+            sortOptions.amount = sortOrder === 'asc' ? 1 : -1;
+        }
+
+        const donorsQuery = DonorModel.find()
+            .populate("group")
+            .sort(sortOptions)
+            .skip(Number(offset))
+            .limit(Number(limit));
+
+        const donors = await donorsQuery.exec();
+
+        const totalDonorsCount = await DonorModel.countDocuments();
+        const totalAmountDonated = await DonorModel.aggregate([
+            { $group: { _id: null, totalAmount: { $sum: "$amount" } } }
+        ]);
+
+        res.send({
+            donors,
+            totalCount: totalDonorsCount,
+            totalAmountDonated: totalAmountDonated.length > 0 ? totalAmountDonated[0].totalAmount : 0
+        });
     } catch (error) {
         console.error('Error fetching donors:', error);
         res.status(500).json({ error: 'Failed to fetch donors' });
     }
 };
+
 
 // Get sum of all donor amounts
 const geSumOfAllDonorAmount = async (req, res) => {

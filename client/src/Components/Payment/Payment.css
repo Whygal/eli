@@ -1,0 +1,100 @@
+.card-payment:hover {
+  background-color: #f5e283;
+}
+.card-payment {
+  border: none !important;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .card-payment {
+    margin: 0 10px;
+  }
+
+  .card-container {
+    padding: 5px 40px;
+  }
+}
+@media (max-width: 600px) {
+  .card-payment {
+    padding: 0 10px;
+  }
+  .font-plan {
+    font-size: 12px;
+  }
+}
+
+.about-text-container {
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.about-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background-color: black; */
+  z-index: -1;
+}
+
+.about-text {
+  background-color: transparent;
+  padding: 0 10px;
+  color: white;
+  background-color: #223f84;
+  font-size: 14px;
+}
+.about-text:hover {
+  background-color: transparent;
+  padding: 0 10px;
+  color: white;
+  background-color: #c9a140;
+  font-size: 14px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.box-image {
+  width: 70px;
+  height: 70px;
+}
+
+.hover-button:hover {
+  background-color: #223f84d4 !important;
+}
+.hoverBlue:hover {
+  background-color: #223f84 !important;
+}
+.marginButton {
+  margin: 0 15px;
+}
+
+@media (max-width: 600px) {
+  .box-image {
+    width: 60px;
+    height: 60px;
+  }
+  .font-plan {
+    font-size: 9px;
+  }
+  .marginButton {
+    margin: 0 15px;
+  }
+  .marginButton {
+    margin: 0 5px;
+  }
+}
+
+@media (max-width: 384px) {
+  .font-plan {
+    font-size: 7px;
+  }
+}

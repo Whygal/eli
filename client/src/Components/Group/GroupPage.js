@@ -1,59 +1,99 @@
 import React, { useState, useEffect } from "react";
-import { FormControl, Stack, Container } from '@mui/material';
-import Button from '@mui/material/Button';
-import CountdownTimer from '../Clock/TimerCounter';
-import { useParams } from 'react-router-dom';
-import { useDonorContext } from '../../context/DonorContext';
+import { FormControl, Stack, Container } from "@mui/material";
+import Button from "@mui/material/Button";
+import CountdownTimer from "../Clock/TimerCounter";
+import { Link, useParams } from "react-router-dom";
+import { useDonorContext } from "../../context/DonorContext";
+import { useGroupContext } from "../../context/GroupContext";
 import DonorAndGroupTabsDisplay from "../Main/DonorAndGroupTabsDisplay";
 import ProgressAndClock from "../Progress/ProgressAndClock";
 import YoutubeEmbed from "../Video/YoutubeEmbed";
-import ButtomPayment from '../Payment/ButtomPayment';
+import ButtomPayment from "../Payment/ButtomPayment";
+import MainPayment from "../Payment/MainPayment";
+import Banner from "../Banner/Banner";
+import GroupCard from "./GroupCard";
 
 function GroupPage() {
-    const { groupId, groupName } = useParams();
-    const [amount, setAmount] = useState(0);
+  const { groupId, groupName } = useParams();
+  const [amount, setAmount] = useState(0);
 
-    const THREE_DAYS_IN_MS = 3 * 24 * 60 * 60 * 1000;
-    const NOW_IN_MS = new Date().getTime();
-    const dateTimeAfterThreeDays = NOW_IN_MS + THREE_DAYS_IN_MS;
+  const THREE_DAYS_IN_MS = 3 * 24 * 60 * 60 * 1000;
+  const NOW_IN_MS = new Date().getTime();
+  const dateTimeAfterThreeDays = NOW_IN_MS + THREE_DAYS_IN_MS;
 
-    const { donors, loading: donorLoading, error: donorError, getDonorsByGroupId } = useDonorContext();
+  const {
+    donors,
+    loading: donorLoading,
+    error: donorError,
+    getDonorsByGroupId,
+  } = useDonorContext();
 
+  const {
+    group,
+    loading: groupLoading,
+    error: groupError,
+    getGroupByID,
+  } = useGroupContext();
 
-    useEffect(() => {
-        groupId && getDonorsByGroupId(groupId);
-    }, [groupId]);
+  useEffect(() => {
+    if (groupId) {
+      getDonorsByGroupId(groupId);
+      getGroupByID(groupId);
+    }
+  }, [groupId]);
 
-    return (
-        <>
-            <div className='page'>
-                <h1>!חב"ד בעתיקא ממשיכים בשיא המרץ</h1>
-                <div className='Buttons'>
-                    <FormControl>
-                        <Stack spacing={2} sx={{ display: "flex", flexDirection: "row-reverse", flexWrap: "wrap", justifyContent: "center" }}>
-                            <Button variant="contained" sx={{ marginTop: "2em" }} onClick={() => setAmount(120)}>תרום 120 שקלים</Button>
-                            <Button variant="contained" onClick={() => setAmount(300)}>תרום 300 שקלים</Button>
-                            <Button variant="contained" onClick={() => setAmount(770)}>תרום 770 שקלים</Button>
-                            <Button variant="contained" onClick={() => setAmount(null)}>תרום סכום אחר</Button>
-                        </Stack>
-                    </FormControl>
-                </div>
-            </div>
-            <div>
-               <YoutubeEmbed />
-
-            <Container maxWidth="md" className="pt-3">
-                <ProgressAndClock />
-                <div className='m-5'></div>
-            </Container>
-            </div>
-            <div>
-                <DonorAndGroupTabsDisplay donors={donors} donorLoading={donorLoading} donorError={donorError} />
-            </div>
-                            <ButtomPayment moked={groupName} />
-
-        </>
-    );
+  return (
+    <>
+      <div className="pt-3">
+        <GroupCard
+          id={group._id}
+          name={group.name}
+          nameHebrew={group.nameHebrew}
+          sumDonors={group.donorCount}
+          goal={group.goal}
+          totalDonorAmount={group.totalDonorAmount}
+        />
+      </div>
+      <div
+        className="m-0 text-center rlt pb-2 pt-1"
+        style={{
+          backgroundColor: "#223f84",
+          height: "30px",
+          color: "white",
+          fontSize: "13px",
+        }}
+      >
+        <p className="">
+          דף הקבוצה של {group?.nameHebrew}
+          <Link to="/" style={{ textDecoration: "none !important" }}>
+            <span
+              className="text-white p-1"
+              style={{
+                backgroundColor: "#132347",
+                textDecoration: "none !important",
+              }}
+            >
+              לחץ לקמפיין הראשי
+            </span>
+          </Link>
+        </p>
+      </div>
+      <Banner />
+      <MainPayment moked={groupName} />
+      <Container maxWidth="md" className="pt-3">
+        <ProgressAndClock />
+        <div className="m-5"></div>
+      </Container>
+      <div>
+        <DonorAndGroupTabsDisplay
+          donors={donors}
+          donorLoading={donorLoading}
+          donorError={donorError}
+        />
+      </div>
+      <ButtomPayment moked={groupName} />
+    </>
+  );
 }
 
 export default GroupPage;

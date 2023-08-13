@@ -1,46 +1,96 @@
-import React from "react";
-import {Form,Button} from 'react-bootstrap';
+import React, { useState } from "react";
+import { useDonorContext } from "../../context/DonorContext";
+import { useGroupContext } from "../../context/GroupContext";
+import { Button, Form } from "react-bootstrap";
 
-export default function AddDonor() {    
+export default function AddDonor() {
+  const { addDonor } = useDonorContext();
+  const { groups } = useGroupContext();
 
-    return (
-          <div className="row">
-        <div className="col-md-4 mx-auto">
-            <h1>הוספת תורם</h1>
-          <Form>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>שם התורם</Form.Label>
-        <Form.Control type="text" />
-        <Form.Text className="text-muted">
-             <Form.Check
-            inline
-            label=""
-            name="group1"
-            type={'text'}
-            id={`inline-${'type'}-1`}
-          />
-אנונימי        </Form.Text>
-      </Form.Group>
+  const [donorName, setDonorName] = useState("");
+  const [donorAmount, setDonorAmount] = useState("");
+  const [donorComment, setDonorComment] = useState("");
+  const [donorGroup, setDonorGroup] = useState("");
+  const [donorPaymentMethod, setDonorPaymentMethod] = useState("")
+  const [formError, setFormError] = useState(""); 
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>סכום התרומה</Form.Label>
-        <Form.Control type="text" required />
+  const handleCreateDonor = () => {
+    if (!donorName || !donorAmount || !donorGroup) {
+      setFormError("יש למלא את כל השדות החובה");
+      return;
+    }
+
+    const newDonor = {
+      name: donorName,
+      amount: donorAmount,
+      comment: donorComment,
+      group: donorGroup,
+      paymentMethod: donorPaymentMethod,
+    };
+
+    addDonor(newDonor);
+    setDonorName("");
+    setDonorAmount("");
+    setDonorComment("");
+    setDonorGroup("");
+    setDonorPaymentMethod("");
+    setFormError(""); // Clear form-level error after successful submission
+  };
+
+  return (
+    <div className="rlt">
+      <h2>הוסף תורם</h2>
+      {formError && <p style={{ color: "red" }}>{formError}</p>}
+      <Form.Group>
+        <Form.Label>*שם התורם</Form.Label>
+        <Form.Control
+          type="text"
+          value={donorName}
+          onChange={(e) => setDonorName(e.target.value)}
+          required
+        />
       </Form.Group>
-       <Form.Select aria-label="Default select example">
-      <option>שייך לקבוצה</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </Form.Select>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>הערה/לזכות</Form.Label>
-        <Form.Control type="text" />
+      <Form.Group>
+        <Form.Label>*סכום התרומה</Form.Label>
+        <Form.Control
+          type="number"
+          value={donorAmount}
+          onChange={(e) => setDonorAmount(e.target.value)}
+          required
+        />
       </Form.Group>
-      <Button variant="primary" type="submit">
-        הוסף
-      </Button>
-    </Form>
-        </div>
-        </div>
-    );
+      <Form.Group>
+        <Form.Label> הקדשה</Form.Label>
+        <Form.Control
+          type="text"
+          value={donorComment}
+          onChange={(e) => setDonorComment(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>*בחר קבוצה</Form.Label>
+        <Form.Select
+          value={donorGroup}
+          onChange={(e) => setDonorGroup(e.target.value)}
+          required
+        >
+          <option value="">בחר קבוצה</option>
+          {groups.map((group) => (
+            <option key={group._id} value={group._id}>
+              {group.name}
+            </option>
+          ))}
+        </Form.Select>
+      </Form.Group>
+      <Form.Group>
+        <Form.Label> אמצעי תשלום</Form.Label>
+        <Form.Control
+          type="text"
+          value={donorPaymentMethod}
+          onChange={(e) => setDonorPaymentMethod(e.target.value)}
+        />
+      </Form.Group>
+      <Button onClick={handleCreateDonor}>הוסף תורם</Button>
+    </div>
+  );
 }

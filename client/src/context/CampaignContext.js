@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
 
+const domain = `https://back-5zii.onrender.com/api`;
+// const domain = `http://localhost:5000/api`;
+
 const initialState = {
     campaigns: {},
     loading: true,
@@ -48,7 +51,7 @@ export const CampaignProvider = ({ children }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/campaign');
+                const response = await axios.get(`${domain}/campaign`);
                 dispatch({ type: 'FETCH_SUCCESS', payload: response.data });
             } catch (error) {
                 dispatch({ type: 'FETCH_ERROR', payload: error.message });
@@ -59,7 +62,7 @@ export const CampaignProvider = ({ children }) => {
 
     const updateCampaign = async (id, updatedData) => {
         try {
-            const response = await axios.put(`http://localhost:5000/api/campaign/${id}`, updatedData);
+            const response = await axios.put(`${domain}/campaign/${id}`, updatedData);
             dispatch({ type: 'UPDATE_SUCCESS', payload: response.data });
         } catch (error) {
             dispatch({ type: 'UPDATE_ERROR', payload: error.message });

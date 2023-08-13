@@ -1,6 +1,5 @@
 import React from "react";
-import DisplayTable from "./DisplayTable";
-import AddDonor from "./AddDonor";
+import DisplayTableDonor from "./DisplayTableDonor";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import {
   BrowserRouter as Router,
@@ -40,9 +39,8 @@ export default function AdminPage() {
       </header>
       <main>
         {location.pathname === "/admin" && <CampaignDetails />}
-        {location.pathname === "/admin/donor" && <DisplayTable />}
+        {location.pathname === "/admin/donor" && <DisplayTableDonor />}
         {location.pathname === "/admin/group" && <DisplayTableGroup />}
-        {/* {location.pathname === "/admin/donor/new" && <AddDonor />} */}
       </main>
     </div>
   );

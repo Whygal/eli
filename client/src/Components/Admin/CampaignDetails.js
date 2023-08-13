@@ -2,6 +2,17 @@ import React, { useState } from "react";
 import { useCampaignContext } from "../../context/CampaignContext";
 import { Button, Form } from "react-bootstrap";
 
+export const formatDate = (date) => {
+  return new Date(date).toLocaleString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  });
+};
+
 export default function CampaignDetails() {
   const { campaigns, updateCampaign } = useCampaignContext();
 
@@ -10,14 +21,6 @@ export default function CampaignDetails() {
   const [updatedGoal, setUpdatedGoal] = useState("");
   const [updatedStartDate, setUpdatedStartDate] = useState("");
   const [updatedEndDate, setUpdatedEndDate] = useState("");
-
-  const formatDate = (date) => {
-    return new Date(date).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
 
   const handleClick = () => {
     setUpdatedName(campaigns.name);

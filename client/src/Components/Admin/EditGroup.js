@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useGroupContext } from "../../context/GroupContext";
 
-
-
 export default function EditGroupForm({ group, onCancel }) {
   const { updateGroup } = useGroupContext();
   const [editedName, setEditedName] = useState(group.name);
   const [editedGoal, setEditedGoal] = useState(group.goal);
+  const [editedNameHebrew, setEditedNameHebrew] = useState(group.nameHebrew);
 
   const handleSave = () => {
     const updatedData = {
       name: editedName,
+      nameHebrew: editedNameHebrew,
       goal: editedGoal,
     };
     updateGroup(group._id, updatedData);
@@ -23,6 +23,11 @@ export default function EditGroupForm({ group, onCancel }) {
         type="text"
         value={editedName}
         onChange={(e) => setEditedName(e.target.value)}
+      />
+      <input
+        type="text"
+        value={editedNameHebrew}
+        onChange={(e) => setEditedNameHebrew(e.target.value)}
       />
       <input
         type="text"

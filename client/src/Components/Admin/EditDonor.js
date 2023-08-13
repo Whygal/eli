@@ -17,7 +17,7 @@ export default function EditGroupForm({ donor, onCancel }) {
       commit: editedCommit,
       group: editedGroup,
     };
-    updateGroup(donor._id, updatedData);
+    updateDonor(donor._id, updatedData);
     onCancel();
   };
 
@@ -30,8 +30,8 @@ export default function EditGroupForm({ donor, onCancel }) {
       />
       <input
         type="text"
-        value={editedGoal}
-        onChange={(e) => setEditedGoal(e.target.value)}
+        value={editedAmount}
+        onChange={(e) => setEditedAmount(e.target.value)}
       />
       <input
         type="text"

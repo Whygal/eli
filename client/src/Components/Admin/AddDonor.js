@@ -11,8 +11,14 @@ export default function AddDonor() {
   const [donorAmount, setDonorAmount] = useState("");
   const [donorComment, setDonorComment] = useState("");
   const [donorGroup, setDonorGroup] = useState("");
+  const [formError, setFormError] = useState(""); // For displaying form-level error message
 
   const handleCreateDonor = () => {
+    if (!donorName || !donorAmount || !donorGroup) {
+      setFormError("יש למלא את כל השדות החובה");
+      return;
+    }
+
     const newDonor = {
       name: donorName,
       amount: donorAmount,
@@ -25,25 +31,29 @@ export default function AddDonor() {
     setDonorAmount("");
     setDonorComment("");
     setDonorGroup("");
+    setFormError(""); // Clear form-level error after successful submission
   };
 
   return (
     <div className="rlt">
       <h2>הוסף תורם</h2>
+      {formError && <p style={{ color: "red" }}>{formError}</p>}
       <Form.Group>
-        <Form.Label>שם התורם</Form.Label>
+        <Form.Label>*שם התורם</Form.Label>
         <Form.Control
           type="text"
           value={donorName}
           onChange={(e) => setDonorName(e.target.value)}
+          required
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>סכום התרומה</Form.Label>
+        <Form.Label>*סכום התרומה</Form.Label>
         <Form.Control
-          type="text"
+          type="number"
           value={donorAmount}
           onChange={(e) => setDonorAmount(e.target.value)}
+          required
         />
       </Form.Group>
       <Form.Group>
@@ -55,10 +65,11 @@ export default function AddDonor() {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>בחר קבוצה</Form.Label>
+        <Form.Label>*בחר קבוצה</Form.Label>
         <Form.Select
           value={donorGroup}
           onChange={(e) => setDonorGroup(e.target.value)}
+          required
         >
           <option value="">בחר קבוצה</option>
           {groups.map((group) => (

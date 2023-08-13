@@ -9,6 +9,8 @@ import {
 } from "react-router-dom";
 import DisplayTableGroup from "./DisplayTableGroup";
 import CampaignDetails from "./CampaignDetails";
+import { NavLink } from "react-router-dom";
+
 
 export default function AdminPage() {
   const location = useLocation();
@@ -25,12 +27,27 @@ export default function AdminPage() {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="px-5">
-                  <Link to="/admin/donor" className="nav-link">
+                  <NavLink
+                    to="/admin/donor"
+                    className="nav-link mx-4"
+                    activeClassName="active-tab"
+                  >
                     תורמים
-                  </Link>
-                  <Link to="/admin/group" className="nav-link">
+                  </NavLink>
+                  <NavLink
+                    to="/admin/group"
+                    className="nav-link mx-4"
+                    activeClassName="active-tab"
+                  >
                     קבוצות
-                  </Link>
+                  </NavLink>
+                  <NavLink
+                    to="/"
+                    className="nav-link mx-4"
+                    activeClassName="active-tab"
+                  >
+                    עבור לדף הקמפיין הראשי
+                  </NavLink>
                 </Nav>
               </Navbar.Collapse>
             </Container>

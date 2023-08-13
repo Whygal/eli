@@ -31,12 +31,26 @@ export default function DisplayTableGroup() {
 
   return (
     <>
+      <Button onClick={handleShowAddGroup}>הוסף קבוצה</Button>
+      <Modal show={showAddGroup} onHide={handleCloseAddGroup} fullscreen={true}>
+        <Modal.Header closeButton>
+          <Modal.Title>הוסף קבוצה חדשה</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AddGroup />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseAddGroup}>
+            סגור
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell align="right">שם הקבוצה בקשר</TableCell>
-              <TableCell align="right"> שם הקבוצה</TableCell>
+              <TableCell align="right">שם הקבוצה בקשר (באנגלית) </TableCell>
+              <TableCell align="right"> שם הקבוצה (בעברית)</TableCell>
               <TableCell align="right">מטרה</TableCell>
               <TableCell align="right">עריכה</TableCell>
               <TableCell align="right">מחיקה</TableCell>
@@ -105,20 +119,6 @@ export default function DisplayTableGroup() {
           </TableCell>
         </TableRow>
       )}
-      <Button onClick={handleShowAddGroup}>Add new group</Button>
-      <Modal show={showAddGroup} onHide={handleCloseAddGroup} fullscreen={true}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add New Group</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <AddGroup />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseAddGroup}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </>
   );
 }

@@ -10,6 +10,7 @@ import YoutubeEmbed from "../Video/YoutubeEmbed";
 import ButtomPayment from "../Payment/ButtomPayment";
 import MainPayment from "../Payment/MainPayment";
 import Banner from "../Banner/Banner";
+import GroupCard from "./GroupCard"
 
 function GroupPage() {
   const { groupId, groupName } = useParams();
@@ -32,9 +33,17 @@ function GroupPage() {
 
   return (
     <>
+      {/* <GroupCard
+        id={group._id}
+        name={group.name}
+        nameHebrew={group.nameHebrew}
+        sumDonors={group.donorCount}
+        goal={group.goal}
+        totalDonorAmount={group.totalDonorAmount}
+      /> */}
+      
       <Banner />
       <MainPayment moked={groupName} />
-
       <Container maxWidth="md" className="pt-3">
         <ProgressAndClock />
         <div className="m-5"></div>

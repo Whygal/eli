@@ -11,7 +11,7 @@ export default function AddDonor() {
   const [donorAmount, setDonorAmount] = useState("");
   const [donorComment, setDonorComment] = useState("");
   const [donorGroup, setDonorGroup] = useState("");
-  const [formError, setFormError] = useState(""); // For displaying form-level error message
+  const [formError, setFormError] = useState(""); 
 
   const handleCreateDonor = () => {
     if (!donorName || !donorAmount || !donorGroup) {

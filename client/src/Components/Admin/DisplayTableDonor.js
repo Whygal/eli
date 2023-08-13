@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -22,7 +22,6 @@ export default function DisplayTableDonor() {
     fetchData,
   } = useDonorContext();
 
-  
   useEffect(() => {
     fetchData();
   }, []);
@@ -38,6 +37,20 @@ export default function DisplayTableDonor() {
 
   return (
     <>
+      <Button onClick={handleShowAddDonor}>הוסף תורם</Button>
+      <Modal show={showAddDonor} onHide={handleCloseAddDonor} fullscreen={true}>
+        <Modal.Header closeButton>
+          <Modal.Title>הוסף תורם חדש</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AddDonor />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseAddDonor}>
+            סגור
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
@@ -118,20 +131,6 @@ export default function DisplayTableDonor() {
           </TableCell>
         </TableRow>
       )}
-      <Button onClick={handleShowAddDonor}>הוסף תורם</Button>
-      <Modal show={showAddDonor} onHide={handleCloseAddDonor} fullscreen={true}>
-        <Modal.Header closeButton>
-          <Modal.Title>הוסף תורם חדש</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <AddDonor />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseAddDonor}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </>
   );
 }

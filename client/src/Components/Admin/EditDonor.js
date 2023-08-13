@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useGroupContext } from "../../context/GroupContext";
 import { useDonorContext } from "../../context/DonorContext";
+import { Form } from "react-bootstrap"; // Import Form from react-bootstrap
 
 export default function EditGroupForm({ donor, onCancel }) {
   const { updateDonor } = useDonorContext();
@@ -8,13 +9,13 @@ export default function EditGroupForm({ donor, onCancel }) {
   const [editedName, setEditedName] = useState(donor.name);
   const [editedAmount, setEditedAmount] = useState(donor.amount);
   const [editedGroup, setEditedGroup] = useState(donor.group);
-  const [editedCommit, setEditedCommit] = useState(donor.commit);
+  const [editedCommit, setEditedCommit] = useState(donor.comment);
 
   const handleSave = () => {
     const updatedData = {
       name: editedName,
       amount: editedAmount,
-      commit: editedCommit,
+      comment: editedCommit,
       group: editedGroup,
     };
     updateDonor(donor._id, updatedData);
@@ -22,23 +23,29 @@ export default function EditGroupForm({ donor, onCancel }) {
   };
 
   return (
-    <div>
-      <input
+    <Form.Group className="rlt">
+      <Form.Label>שם התורם</Form.Label>
+      <Form.Control
         type="text"
         value={editedName}
         onChange={(e) => setEditedName(e.target.value)}
       />
-      <input
+      <Form.Label>סכום</Form.Label>
+      <Form.Control
         type="text"
         value={editedAmount}
         onChange={(e) => setEditedAmount(e.target.value)}
       />
-      <input
+      <Form.Label>הקדשה</Form.Label>
+      <Form.Control
         type="text"
         value={editedCommit}
         onChange={(e) => setEditedCommit(e.target.value)}
       />
-      <select
+      <Form.Label>קבוצה</Form.Label>
+      <p> {donor.group.name}</p>
+
+      <Form.Select
         value={editedGroup}
         onChange={(e) => setEditedGroup(e.target.value)}
       >
@@ -47,10 +54,9 @@ export default function EditGroupForm({ donor, onCancel }) {
             {group.name}
           </option>
         ))}
-      </select>
-
+      </Form.Select>
       <button onClick={handleSave}>שמור שינויים</button>
       <button onClick={onCancel}>בטל</button>
-    </div>
+    </Form.Group>
   );
 }

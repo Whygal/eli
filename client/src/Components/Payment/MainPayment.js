@@ -81,7 +81,7 @@ export default function MainPayment({ moked }) {
                     <Image
                       src={plan.image}
                       roundedCircle
-                    //   width={"70px"}
+                      //   width={"70px"}
                       className="box-image"
                     />
                   </div>
@@ -114,7 +114,9 @@ export default function MainPayment({ moked }) {
       <Modal show={showAbout} onHide={handleCloseAbout} size="lg">
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-          <About />
+          <div className="mb-5 pb-2">
+            <About />
+          </div>
         </Modal.Body>
       </Modal>
     </div>

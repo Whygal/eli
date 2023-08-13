@@ -11,6 +11,7 @@ export default function AddDonor() {
   const [donorAmount, setDonorAmount] = useState("");
   const [donorComment, setDonorComment] = useState("");
   const [donorGroup, setDonorGroup] = useState("");
+  const [donorPaymentMethod, setDonorPaymentMethod] = useState("")
   const [formError, setFormError] = useState(""); 
 
   const handleCreateDonor = () => {
@@ -24,6 +25,7 @@ export default function AddDonor() {
       amount: donorAmount,
       comment: donorComment,
       group: donorGroup,
+      paymentMethod: donorPaymentMethod,
     };
 
     addDonor(newDonor);
@@ -31,6 +33,7 @@ export default function AddDonor() {
     setDonorAmount("");
     setDonorComment("");
     setDonorGroup("");
+    setDonorPaymentMethod("");
     setFormError(""); // Clear form-level error after successful submission
   };
 
@@ -78,6 +81,14 @@ export default function AddDonor() {
             </option>
           ))}
         </Form.Select>
+      </Form.Group>
+      <Form.Group>
+        <Form.Label> אמצעי תשלום</Form.Label>
+        <Form.Control
+          type="text"
+          value={donorPaymentMethod}
+          onChange={(e) => setDonorPaymentMethod(e.target.value)}
+        />
       </Form.Group>
       <Button onClick={handleCreateDonor}>הוסף תורם</Button>
     </div>

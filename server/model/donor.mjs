@@ -1,36 +1,40 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
 const DonorSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        minlength: 2,
-        maxlength: 255
-    },
-    amount: {
-        type: Number,
-        required: true,
-    },
-    currency: {
-        type: String,
-        default: 'ILS'
-    },
-    group: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Group'
-    },
-    date: {
-        type: Date,
-        default: Date.now
-    },
-    comment: {
-        type: String,
-        maxlength: 255,
-    }
+  name: {
+    type: String,
+    required: true,
+    minlength: 2,
+    maxlength: 255,
+  },
+  amount: {
+    type: Number,
+    required: true,
+  },
+  currency: {
+    type: String,
+    default: "ILS",
+  },
+  group: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Group",
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  comment: {
+    type: String,
+    maxlength: 255,
+  },
+  paymentMethod: {
+    type: String,
+    maxlength: 255,
+  },
 });
 
-const DonorModel = mongoose.model('Donor', DonorSchema);
+const DonorModel = mongoose.model("Donor", DonorSchema);
 
 export default DonorModel;

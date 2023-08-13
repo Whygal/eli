@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.post('/group', group.createGroup);
 router.get('/group', group.getAllGroups);
+router.get('/group/:id', group.getGroupById);
 router.put('/group/:id', group.updateGroup);
 router.delete('/group/:id', group.deleteGroup);
 

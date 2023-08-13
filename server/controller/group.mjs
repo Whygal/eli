@@ -46,21 +46,33 @@ const getAllGroups = async (req, res) => {
   }
 };
 
-// Get an group by ID
+// Get a group by ID with donor count
 const getGroupById = async (req, res) => {
   try {
     const groupId = req.params.id;
-    const group = await GroupModel.findById(groupId);
+
+    const group = await GroupModel.findById(groupId).populate("donors");
+
     if (!group) {
       res.status(404).json({ error: "Group not found" });
       return;
     }
-    res.json(group);
+
+    const donorCount = group.donors.length;
+
+    // Calculate the total donor amount
+    let totalDonorAmount = 0;
+    for (const donor of group.donors) {
+      totalDonorAmount += donor.amount;
+    }
+
+    res.json({ ...group.toObject(), donorCount, totalDonorAmount });
   } catch (error) {
     console.error("Error fetching group:", error);
     res.status(500).json({ error: "Failed to fetch group" });
   }
 };
+
 
 // Update an group
 const updateGroup = async (req, res) => {

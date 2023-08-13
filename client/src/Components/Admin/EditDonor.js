@@ -10,6 +10,7 @@ export default function EditGroupForm({ donor, onCancel }) {
   const [editedAmount, setEditedAmount] = useState(donor.amount);
   const [editedGroup, setEditedGroup] = useState(donor.group);
   const [editedCommit, setEditedCommit] = useState(donor.comment);
+  const [editedPaymentMethod, setPaymentMethod] = useState(donor.paymentMethod);
 
   const handleSave = () => {
     const updatedData = {
@@ -17,6 +18,7 @@ export default function EditGroupForm({ donor, onCancel }) {
       amount: editedAmount,
       comment: editedCommit,
       group: editedGroup,
+      paymentMethod:editedPaymentMethod,
     };
     updateDonor(donor._id, updatedData);
     onCancel();
@@ -55,6 +57,12 @@ export default function EditGroupForm({ donor, onCancel }) {
           </option>
         ))}
       </Form.Select>
+      <Form.Label>אמצעי תשלום</Form.Label>
+      <Form.Control
+        type="text"
+        value={editedPaymentMethod}
+        onChange={(e) => setPaymentMethod(e.target.value)}
+      />
       <button onClick={handleSave}>שמור שינויים</button>
       <button onClick={onCancel}>בטל</button>
     </Form.Group>

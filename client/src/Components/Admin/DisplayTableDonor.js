@@ -60,6 +60,7 @@ export default function DisplayTableDonor() {
               <TableCell align="right">קבוצה</TableCell>
               <TableCell align="right">הקדשה</TableCell>
               <TableCell align="right">תאריך</TableCell>
+              <TableCell align="right">אמצעי תשלום</TableCell>
               <TableCell align="right">עריכה</TableCell>
               <TableCell align="right">מחיקה</TableCell>
             </TableRow>
@@ -90,6 +91,7 @@ export default function DisplayTableDonor() {
                   </TableCell>
                   <TableCell align="right">{donor.comment}</TableCell>
                   <TableCell align="right">{formatDate(donor.date)}</TableCell>
+                  <TableCell align="right">{donor.paymentMethod}</TableCell>
                   <TableCell align="right">
                     {editedDonor && editedDonor._id === donor._id ? (
                       <Button

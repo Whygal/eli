@@ -20,7 +20,9 @@ import GroupModel from '../model/group.mjs';
 // Get all donors
 const getAllDonors = async (req, res) => {
     try {
-        const donors = await DonorModel.find().populate('group');
+        const donors = await DonorModel.find()
+          .populate("group")
+          .sort({ date: -1 });
         res.send(donors);
     } catch (error) {
         console.error('Error fetching donors:', error);

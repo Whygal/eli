@@ -35,6 +35,9 @@ const getAllGroups = async (req, res) => {
           totalDonorAmount: { $sum: "$donors.amount" },
         },
       },
+      {
+        $sort: { nameHebrew: 1 },
+      },
     ]);
     res.json(groups);
   } catch (error) {

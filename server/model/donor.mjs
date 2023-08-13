@@ -27,7 +27,6 @@ const DonorSchema = new Schema({
     },
     comment: {
         type: String,
-        minlength: 2,
         maxlength: 255,
     }
 });

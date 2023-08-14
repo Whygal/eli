@@ -1,99 +1,166 @@
-import React, { useState, useEffect } from "react";
-import { FormControl, Stack, Container } from "@mui/material";
-import Button from "@mui/material/Button";
-import CountdownTimer from "../Clock/TimerCounter";
-import { Link, useParams } from "react-router-dom";
-import { useDonorContext } from "../../context/DonorContext";
-import { useGroupContext } from "../../context/GroupContext";
-import DonorAndGroupTabsDisplay from "../Main/DonorAndGroupTabsDisplay";
-import ProgressAndClock from "../Progress/ProgressAndClock";
-import YoutubeEmbed from "../Video/YoutubeEmbed";
-import ButtomPayment from "../Payment/ButtomPayment";
-import MainPayment from "../Payment/MainPayment";
-import Banner from "../Banner/Banner";
-import GroupCard from "./GroupCard";
+import React, { createContext, useContext, useReducer, useEffect } from "react";
+import axios from "axios";
 
-function GroupPage() {
-  const { groupId, groupName } = useParams();
-  const [amount, setAmount] = useState(0);
+// const domain = `https://back-5zii.onrender.com/api`;
+const domain = `http://localhost:5000/api`;
 
-  const THREE_DAYS_IN_MS = 3 * 24 * 60 * 60 * 1000;
-  const NOW_IN_MS = new Date().getTime();
-  const dateTimeAfterThreeDays = NOW_IN_MS + THREE_DAYS_IN_MS;
+// Initial state for the reducer
+const initialState = {
+  donors: [],
+  loading: true,
+  error: null,
+  sumOfAllDonorAmount: 0,
+  totalDonors: 0,
+  offset: 0,
+};
 
-  const {
-    donors,
-    loading: donorLoading,
-    error: donorError,
-    getDonorsByGroupId,
-  } = useDonorContext();
+// Reducer function
+const donorReducer = (state, action) => {
+  switch (action.type) {
+    case "FETCH_SUCCESS":
+      return {
+        ...state,
+        donors: action.payload.donors,
+        totalDonors: action.payload.totalCount,
+        loading: false,
+        error: null,
+      };
+    case "FETCH_SUCCESS_DONORS_BY_GROUP":
+      return {
+        ...state,
+        donors: action.payload,
+        loading: false,
+        error: null,
+      };
+    case "FETCH_ERROR":
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case "ADD_DONOR_SUCCESS":
+      return {
+        ...state,
+        donors: [...state.donors, action.payload],
+      };
+    case "ADD_DONOR_ERROR":
+      return state;
+    case "FETCH_TOTAL_AMOUNT_SUCCESS":
+      return {
+        ...state,
+        sumOfAllDonorAmount: action.payload,
+      };
+    case "FETCH_TOTAL_AMOUNT_ERROR":
+      return state;
+    default:
+      return state;
+  }
+};
 
-  const {
-    group,
-    loading: groupLoading,
-    error: groupError,
-    getGroupByID,
-  } = useGroupContext();
+const DonorContext = createContext();
+
+export const DonorProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(donorReducer, initialState);
+
+  const fetchSortedAndLimitedDonors = async (sortBy, sortOrder, pageNumber) => {
+    try {
+      console.log(pageNumber, sortBy, sortOrder);
+      const response = await axios.get(`${domain}/donor`, {
+        params: { sortBy, sortOrder, pageNumber },
+      });
+      dispatch({ type: "FETCH_SUCCESS", payload: response.data });
+    } catch (error) {
+      dispatch({ type: "FETCH_ERROR", payload: error.message });
+    }
+  };
+
+  const getDonorsByGroupId = async (groupId) => {
+    try {
+      const response = await axios.get(`${domain}/donor/groupId/${groupId}`);
+      dispatch({
+        type: "FETCH_SUCCESS_DONORS_BY_GROUP",
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({ type: "FETCH_ERROR", payload: error.message });
+    }
+  };
+
+  const addDonor = async (newDonor) => {
+    try {
+      const response = await axios.post(`${domain}/donor`, newDonor);
+      dispatch({ type: "ADD_DONOR_SUCCESS", payload: response.data });
+      //   fetchData();
+    } catch (error) {
+      dispatch({ type: "ADD_DONOR_ERROR" });
+    }
+  };
+
+  const fetchTotalDonorAmount = async () => {
+    try {
+      const response = await axios.get(`${domain}/donor/totalAmount`);
+      dispatch({
+        type: "FETCH_TOTAL_AMOUNT_SUCCESS",
+        payload: response.data.totalAmount,
+      });
+    } catch (error) {
+      dispatch({ type: "FETCH_TOTAL_AMOUNT_ERROR", payload: error.message });
+    }
+  };
 
   useEffect(() => {
-    if (groupId) {
-      getDonorsByGroupId(groupId);
-      getGroupByID(groupId);
+    fetchTotalDonorAmount(); // Call the function here
+  }, []);
+
+  const updateDonor = async (donorId, updatedDonor) => {
+    try {
+      const response = await axios.put(
+        `${domain}/donor/${donorId}`,
+        updatedDonor
+      );
+      const updatedDonorIndex = state.donors.findIndex(
+        (donor) => donor._id === donorId
+      );
+      if (updatedDonorIndex !== -1) {
+        const updatedDonors = [...state.donors];
+        updatedDonors[updatedDonorIndex] = response.data;
+        dispatch({ type: "FETCH_SUCCESS", payload: updatedDonors });
+      }
+    } catch (error) {
+      dispatch({ type: "FETCH_ERROR", payload: error.message });
     }
-  }, [groupId]);
+  };
+
+  const deleteDonor = async (donorId) => {
+    try {
+      await axios.delete(`${domain}/donor/${donorId}`);
+      const updatedDonors = state.donors.filter(
+        (donor) => donor._id !== donorId
+      );
+      dispatch({ type: "FETCH_SUCCESS", payload: updatedDonors });
+    } catch (error) {
+      dispatch({ type: "FETCH_ERROR", payload: error.message });
+    }
+  };
 
   return (
-    <>
-      <div className="pt-3">
-        <GroupCard
-          id={group._id}
-          name={group.name}
-          nameHebrew={group.nameHebrew}
-          sumDonors={group.donorCount}
-          goal={group.goal}
-          totalDonorAmount={group.totalDonorAmount}
-        />
-      </div>
-      <div
-        className="m-0 text-center rlt pb-2 pt-1"
-        style={{
-          backgroundColor: "#223f84",
-          height: "30px",
-          color: "white",
-          fontSize: "13px",
-        }}
-      >
-        <p className="">
-          דף הקבוצה של {group?.nameHebrew}
-          <Link to="/" style={{ textDecoration: "none !important" }}>
-            <span
-              className="text-white p-1"
-              style={{
-                backgroundColor: "#132347",
-                textDecoration: "none !important",
-              }}
-            >
-              לחץ לקמפיין הראשי
-            </span>
-          </Link>
-        </p>
-      </div>
-      <Banner />
-      <MainPayment moked={groupName} />
-      <Container maxWidth="md" className="pt-3">
-        <ProgressAndClock />
-        <div className="m-5"></div>
-      </Container>
-      <div>
-        <DonorAndGroupTabsDisplay
-          donors={donors}
-          donorLoading={donorLoading}
-          donorError={donorError}
-        />
-      </div>
-      <ButtomPayment moked={groupName} />
-    </>
+    <DonorContext.Provider
+      value={{
+        ...state,
+        addDonor,
+        // fetchData,
+        getDonorsByGroupId,
+        fetchTotalDonorAmount,
+        updateDonor,
+        deleteDonor,
+        fetchSortedAndLimitedDonors,
+      }}
+    >
+      {children}
+    </DonorContext.Provider>
   );
-}
+};
 
-export default GroupPage;
+export const useDonorContext = () => {
+  return useContext(DonorContext);
+};

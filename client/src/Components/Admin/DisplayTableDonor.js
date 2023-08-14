@@ -12,6 +12,7 @@ import { Button, Modal } from "react-bootstrap";
 import AddDonor from "./AddDonor";
 import EditDonorForm from "./EditDonor";
 import { formatDate } from "./CampaignDetails";
+import Pagination from "react-bootstrap/Pagination";
 
 export default function DisplayTableDonor() {
   const {
@@ -19,12 +20,20 @@ export default function DisplayTableDonor() {
     loading: donorLoading,
     error: donorError,
     deleteDonor,
-    fetchData,
+    fetchSortedAndLimitedDonors,
+    totalDonors,
   } = useDonorContext();
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 15; // Number of items to display per page
+  const totalPages = Math.ceil(totalDonors / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const displayedDonors = donors?.slice(startIndex, endIndex);
+
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchSortedAndLimitedDonors("date", "desc", currentPage);
+  }, [currentPage]);
 
   const [showAddDonor, setShowAddDonor] = useState(false);
   const handleCloseAddDonor = () => setShowAddDonor(false);
@@ -79,13 +88,16 @@ export default function DisplayTableDonor() {
                 </TableCell>
               </TableRow>
             ) : (
-              donors.map((donor, index) => (
+              donors &&
+              donors.length > 0 && donors.map((donor, index) => (
                 <TableRow
                   key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell align="right">{donor.name}</TableCell>
-                  <TableCell align="right">{Number(donor.amount).toLocaleString()}</TableCell>
+                  <TableCell align="right">
+                    {Number(donor.amount).toLocaleString()}
+                  </TableCell>
                   <TableCell align="right">
                     {donor?.group?.nameHebrew}
                   </TableCell>
@@ -123,6 +135,17 @@ export default function DisplayTableDonor() {
           </TableBody>
         </Table>
       </TableContainer>
+      <Pagination>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <Pagination.Item
+            key={index}
+            active={index === currentPage}
+            onClick={() => setCurrentPage(index)}
+          >
+            {index + 1}
+          </Pagination.Item>
+        ))}
+      </Pagination>
       {editedDonor && (
         <TableRow>
           <TableCell colSpan={5}>

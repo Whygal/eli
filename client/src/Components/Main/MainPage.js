@@ -10,21 +10,23 @@ import MainPayment from "../Payment/MainPayment";
 import ButtomPayment from "../Payment/ButtomPayment";
 
 function MainPage() {
-  const {
-    donors,
-    loading: donorLoading,
-    error: donorError,
-    fetchData,
-  } = useDonorContext();
-  const {
-    groups,
-    loading: groupLoading,
-    error: groupError,
-  } = useGroupContext();
+  //   const {
+  //     donors,
+  //     loading: donorLoading,
+  //     error: donorError,
+  //     // fetchData,
+  //     fetchSortedAndLimitedDonors,
+  //     totalDonors,
+  //   } = useDonorContext();
+  //   const {
+  //     groups,
+  //     loading: groupLoading,
+  //     error: groupError,
+  //   } = useGroupContext();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  //   useEffect(() => {
+  //     fetchSortedAndLimitedDonors();
+  //   }, []);
 
   return (
     <>
@@ -35,12 +37,13 @@ function MainPage() {
         <div className="m-5"></div>
       </Container>
       <DonorAndGroupTabsDisplay
-        donors={donors}
-        groups={groups}
-        donorLoading={donorLoading}
-        donorError={donorError}
-        groupLoading={groupLoading}
-        groupError={groupError}
+      // donors={donors}
+      // groups={groups}
+      // donorLoading={donorLoading}
+      // donorError={donorError}
+      // groupLoading={groupLoading}
+      // groupError={groupError}
+      // totalDonors={totalDonors}
       />
       <ButtomPayment />
     </>

@@ -68,7 +68,7 @@ export const DonorProvider = ({ children }) => {
     pageNumber,
   ) => {
     try {
-        console.log(sortBy, sortOrder, pageNumber);
+        console.log(pageNumber, sortBy, sortOrder);
       const response = await axios.get(`${domain}/donor`, {
         params: { sortBy, sortOrder, pageNumber },
       });

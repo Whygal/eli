@@ -51,8 +51,9 @@ export default function EditGroupForm({ donor, onCancel }) {
         value={editedGroup}
         onChange={(e) => setEditedGroup(e.target.value)}
       >
+        <option value="">בחר קבוצה</option>
         {groups.map((group) => (
-          <option key={group._id} value={donor?.group?.name}>
+          <option key={group._id} value={group._id}>
             {group.name}
           </option>
         ))}

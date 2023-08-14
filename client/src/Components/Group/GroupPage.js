@@ -5,7 +5,7 @@ import CountdownTimer from "../Clock/TimerCounter";
 import { Link, useParams } from "react-router-dom";
 import { useDonorContext } from "../../context/DonorContext";
 import { useGroupContext } from "../../context/GroupContext";
-import DonorAndGroupTabsDisplay from "../Main/DonorAndGroupTabsDisplay";
+import DonorForGroup from "../Group/DonorForGroup";
 import ProgressAndClock from "../Progress/ProgressAndClock";
 import YoutubeEmbed from "../Video/YoutubeEmbed";
 import ButtomPayment from "../Payment/ButtomPayment";
@@ -85,7 +85,7 @@ function GroupPage() {
         <div className="m-5"></div>
       </Container>
       <div>
-        <DonorAndGroupTabsDisplay
+        <DonorForGroup
           donors={donors}
           donorLoading={donorLoading}
           donorError={donorError}

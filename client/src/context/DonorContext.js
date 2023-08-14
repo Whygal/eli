@@ -90,6 +90,7 @@ export const DonorProvider = ({ children }) => {
     try {
       const response = await axios.post(`${domain}/donor`, newDonor);
       dispatch({ type: "ADD_DONOR_SUCCESS", payload: response.data });
+      fetchSortedAndLimitedDonors();
       //   fetchData();
     } catch (error) {
       dispatch({ type: "ADD_DONOR_ERROR" });
@@ -118,6 +119,7 @@ export const DonorProvider = ({ children }) => {
         `${domain}/donor/${donorId}`,
         updatedDonor
       );
+      fetchSortedAndLimitedDonors();
       const updatedDonorIndex = state.donors.findIndex(
         (donor) => donor._id === donorId
       );

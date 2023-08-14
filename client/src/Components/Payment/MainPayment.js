@@ -52,14 +52,14 @@ export default function MainPayment({ moked }) {
         className="m-0"
         style={{ backgroundColor: "#F5E283", height: "10px" }}
       ></div>
-      <Row className="rlt p-0 m-0" style={{ backgroundColor: "#C9A140" }}>
+      <Row className=" p-0 m-0" style={{ backgroundColor: "#C9A140" }}>
         <p
           className="text-center about-text-container p-0"
           onClick={handleShowAbout}
         >
           <span className="about-text pt-1 pb-2 m-0"> אודות הקמפיין</span>
         </p>
-        <Container className="d-flex justify-content-center mt-0 pt-0">
+        <Container className="d-flex justify-content-center mt-0 pt-0 rlt">
           {plans.map((plan, index) => (
             <Card
               className="card-payment mt-0 pt-0"

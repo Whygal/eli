@@ -3,6 +3,11 @@
     text-align: right;
 }
 
+.noRlt{
+    direction: ltr !important;
+    text-align: left !important;
+}
+
 .tab-active {
     font-weight: bold;
     color: #32444b;

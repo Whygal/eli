@@ -19,15 +19,39 @@ import GroupModel from '../model/group.mjs';
 
 // Get all donors
 const getAllDonors = async (req, res) => {
-    try {
-        const donors = await DonorModel.find()
-          .populate("group")
-          .sort({ date: -1 });
-        res.send(donors);
-    } catch (error) {
-        console.error('Error fetching donors:', error);
-        res.status(500).json({ error: 'Failed to fetch donors' });
+  try {
+    const { sortBy = "date", sortOrder = "desc", pageNumber = 0 } = req.query;
+    const limit = 15;
+    let sortOptions = {};
+    if (sortBy === "date") {
+      sortOptions.date = sortOrder === "asc" ? 1 : -1;
+    } else if (sortBy === "amount") {
+      sortOptions.amount = sortOrder === "asc" ? 1 : -1;
     }
+    console.log(pageNumber, limit, sortOptions);
+    const donorsQuery = DonorModel.find()
+      .populate("group")
+      .sort(sortOptions)
+      .skip(Number(pageNumber * limit))
+      .limit(Number(limit));
+
+    const donors = await donorsQuery.exec();
+
+    const totalDonorsCount = await DonorModel.countDocuments();
+    const totalAmountDonated = await DonorModel.aggregate([
+      { $group: { _id: null, totalAmount: { $sum: "$amount" } } },
+    ]);
+
+    res.send({
+      donors,
+      totalCount: totalDonorsCount,
+      totalAmountDonated:
+        totalAmountDonated.length > 0 ? totalAmountDonated[0].totalAmount : 0,
+    });
+  } catch (error) {
+    console.error("Error fetching donors:", error);
+    res.status(500).json({ error: "Failed to fetch donors" });
+  }
 };
 
 // Get sum of all donor amounts
@@ -56,7 +80,9 @@ const geSumOfAllDonorAmount = async (req, res) => {
 const getDonorsByGroupId = async (req, res) => {
     try {
         const groupId = req.params.id;
-        const donors = await DonorModel.find({ group: groupId }).populate('group');
+        const donors = await DonorModel.find({ group: groupId })
+          .populate("group")
+          .sort({ date: -1 });
         res.send(donors);
     } catch (error) {
         console.error('Error:', error);

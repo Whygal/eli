@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useCampaignContext } from "../../context/CampaignContext";
+import { useDonorContext } from "../../context/DonorContext";
+import { useGroupContext } from "../../context/GroupContext";
 import { Button, Form } from "react-bootstrap";
 
 export const formatDate = (date) => {
@@ -15,6 +17,8 @@ export const formatDate = (date) => {
 
 export default function CampaignDetails() {
   const { campaigns, updateCampaign } = useCampaignContext();
+  const { fetchDonorsForExcel } = useDonorContext();
+  const { fetchGroupsForExcel } = useGroupContext();
 
   const [editing, setEditing] = useState(false);
   const [updatedName, setUpdatedName] = useState("");
@@ -96,6 +100,16 @@ export default function CampaignDetails() {
           <p>יעד: {campaigns.goal}</p>
           <p>תאריך התחלה: {formatDate(campaigns.startDate)}</p>
           <p>תאריך סיום: {formatDate(campaigns.endDate)}</p>
+          <Button variant="success" onClick={fetchDonorsForExcel}>
+            הורד תורמים לאקסל
+          </Button>
+          <Button
+            variant="warning"
+            className="mx-3"
+            onClick={fetchGroupsForExcel}
+          >
+            הורד קבוצות לאקסל
+          </Button>
         </div>
       )}
     </div>

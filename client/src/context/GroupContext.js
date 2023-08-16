@@ -92,13 +92,40 @@ export const GroupProvider = ({ children }) => {
     }
   };
 
+    const fetchGroupsForExcel = async () => {
+      try {
+        const response = await axios.get(`${domain}/donor/excel`, {
+          responseType: "blob",
+        });
+        const blob = new Blob([response.data], {
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "groups.xlsx");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (error) {
+        console.error("Error fetching donors for Excel:", error);
+      }
+    };
+
   useEffect(() => {
     fetchData();
   }, []);
 
   return (
     <GroupContext.Provider
-      value={{ ...state, createGroup, updateGroup, deleteGroup, getGroupByID }}
+      value={{
+        ...state,
+        createGroup,
+        updateGroup,
+        deleteGroup,
+        getGroupByID,
+        fetchGroupsForExcel,
+      }}
     >
       {children}
     </GroupContext.Provider>

@@ -145,6 +145,27 @@ export const DonorProvider = ({ children }) => {
     }
   };
 
+    const fetchDonorsForExcel = async () => {
+      try {
+        const response = await axios.get(`${domain}/donor/excel`, {
+          responseType: "blob",
+        });
+        const blob = new Blob([response.data], {
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "donors.xlsx");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (error) {
+        console.error("Error fetching donors for Excel:", error);
+        // Handle error if needed
+      }
+    };
+
   return (
     <DonorContext.Provider
       value={{
@@ -156,6 +177,7 @@ export const DonorProvider = ({ children }) => {
         updateDonor,
         deleteDonor,
         fetchSortedAndLimitedDonors,
+        fetchDonorsForExcel,
       }}
     >
       {children}

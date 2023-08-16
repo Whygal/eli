@@ -29,7 +29,7 @@ function GroupCard({ id, name,nameHebrew, sumDonors, goal, totalDonorAmount }) {
               <div className="px-1">
                 <LinearProgress
                   variant="determinate"
-                  value={progressPercentage}
+                  value={progressPercentage >= 100 ? 100 : progressPercentage }
                 />
               </div>
             </Grid>

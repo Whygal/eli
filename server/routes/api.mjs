@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.post('/group', group.createGroup);
 router.get('/group', group.getAllGroups);
+router.get('/group/excel', group.getAllGroupsForExcel);
 router.get('/group/:id', group.getGroupById);
 router.put('/group/:id', group.updateGroup);
 router.delete('/group/:id', group.deleteGroup);
@@ -14,6 +15,7 @@ router.delete('/group/:id', group.deleteGroup);
 
 router.post('/donor', donor.createDonor);
 router.get('/donor', donor.getAllDonors);
+router.get('/donor/excel', donor.getAllDonorsForExcel);
 router.get('/donor/groupId/:id', donor.getDonorsByGroupId);
 router.put('/donor/:id', donor.updateDonor);
 router.delete('/donor/:id', donor.deleteDonor);

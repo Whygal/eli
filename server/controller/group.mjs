@@ -1,4 +1,5 @@
 import GroupModel from "../model/group.mjs";
+import json2xls from "json2xls";
 
 // Create a new group
 const createGroup = async (req, res) => {
@@ -45,6 +46,46 @@ const getAllGroups = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch groups" });
   }
 };
+const getAllGroupsForExcel = async (req, res) => {
+  try {
+    const groups = await GroupModel.aggregate([
+      {
+        $lookup: {
+          from: "donors",
+          localField: "_id",
+          foreignField: "group",
+          as: "donors",
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          nameHebrew: 1,
+          goal: 1,
+          donorCount: { $size: "$donors" },
+          totalDonorAmount: { $sum: "$donors.amount" },
+        },
+      },
+      {
+        $sort: { totalDonorAmount: -1 },
+      },
+    ]);
+
+    const xls = json2xls(groups);
+
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+    res.setHeader("Content-Disposition", "attachment; filename=donors.xlsx");
+    res.send(new Buffer(xls, "binary"));
+
+  } catch (error) {
+    console.error("Error fetching groups excel:", error);
+    res.status(500).json({ error: "Failed to fetch groups excel" });
+  }
+};
 
 // Get a group by ID with donor count
 const getGroupById = async (req, res) => {
@@ -72,7 +113,6 @@ const getGroupById = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch group" });
   }
 };
-
 
 // Update an group
 const updateGroup = async (req, res) => {
@@ -117,4 +157,5 @@ export default {
   getGroupById,
   updateGroup,
   deleteGroup,
+  getAllGroupsForExcel,
 };

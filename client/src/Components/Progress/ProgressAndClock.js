@@ -6,7 +6,7 @@ import { useCampaignContext } from "../../context/CampaignContext";
 
 function ProgressAndClock() {
   const { campaigns } = useCampaignContext();
-  const endDate = Date.parse("2023-08-17T21:00:00.000Z");
+  const endDate = Date.parse("2023-08-18T16:00:00.000Z");
   const now = new Date().getTime();
   const timeLeft = endDate - now;
 

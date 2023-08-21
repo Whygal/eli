@@ -3,6 +3,11 @@ import { useCampaignContext } from "../../context/CampaignContext";
 import { useDonorContext } from "../../context/DonorContext";
 import { useGroupContext } from "../../context/GroupContext";
 import { Button, Form } from "react-bootstrap";
+import dayjs from "dayjs";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 export const formatDate = (date) => {
   return new Date(date).toLocaleString("en-US", {
@@ -25,6 +30,7 @@ export default function CampaignDetails() {
   const [updatedGoal, setUpdatedGoal] = useState("");
   const [updatedStartDate, setUpdatedStartDate] = useState("");
   const [updatedEndDate, setUpdatedEndDate] = useState("");
+  const [value, setValue] = React.useState(dayjs("2022-04-17T15:30"));
 
   const handleClick = () => {
     setUpdatedName(campaigns.name);
@@ -55,7 +61,7 @@ export default function CampaignDetails() {
     <div className="">
       <h1>פרטי הקמפיין</h1>
       {editing ? (
-        <div>
+        <div className="container">
           <Form.Group>
             <Form.Label>שם הקמפיין</Form.Label>
             <Form.Control
@@ -72,7 +78,7 @@ export default function CampaignDetails() {
               onChange={(e) => setUpdatedGoal(e.target.value)}
             />
           </Form.Group>
-          <Form.Group>
+          {/* <Form.Group>
             <Form.Label>תאריך התחלה</Form.Label>
             <Form.Control
               type="date"
@@ -87,7 +93,26 @@ export default function CampaignDetails() {
               value={updatedEndDate}
               onChange={(e) => setUpdatedEndDate(e.target.value)}
             />
-          </Form.Group>
+          </Form.Group> */}
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DateTimePicker", "DateTimePicker"]}>
+              <Form.Label>תאריך התחלה</Form.Label>
+              <DateTimePicker
+                label="תאריך התחלה"
+                value={dayjs(updatedStartDate)}
+                onChange={(newDate) =>
+                  setUpdatedStartDate(newDate.toISOString())
+                }
+              />
+              <Form.Label>תאריך סיום</Form.Label>
+              <DateTimePicker
+                label="תאריך סיום"
+                value={dayjs(updatedEndDate)}
+                onChange={(newDate) => setUpdatedEndDate(newDate.toISOString())}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+
           <Button onClick={handleUpdate}>שמור שינויים</Button>
           <Button variant="secondary" onClick={handleCancel}>
             בטל

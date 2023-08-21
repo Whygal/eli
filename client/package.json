@@ -5,13 +5,15 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.2",
+    "@mui/material": "^5.14.5",
     "@mui/styled-engine-sc": "^5.12.0",
+    "@mui/x-date-pickers": "^6.11.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.1",
+    "dayjs": "^1.11.9",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",
@@ -28,7 +30,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "render-postbuild": "npm install && npm run build"
-
   },
   "eslintConfig": {
     "extends": [
